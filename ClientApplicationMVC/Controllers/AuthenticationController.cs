@@ -23,8 +23,13 @@ namespace ClientApplicationMVC.Controllers
             ViewBag.Message = "Please enter your username and password.";
             return View("Index");
         }
-		
-		//This class is incomplete and should be completed by the students in milestone 2
-		//Hint: You will need to make use of the ServiceBusConnection class. See EchoController.cs for an example.
+
+        public ActionResult CreateAccount()
+        {
+            return View("CreateAccount");
+        }
+
+        //This class is incomplete and should be completed by the students in milestone 2
+        //Hint: You will need to make use of the ServiceBusConnection class. See EchoController.cs for an example.
     }
 }
