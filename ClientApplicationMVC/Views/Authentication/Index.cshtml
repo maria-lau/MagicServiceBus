@@ -23,9 +23,8 @@
         </div>
         <div style="text-align:center;">
             <button type="button">Login</button>
-            <button type="button" class="createbtn">Create New Account</button>
+            <a href="/Authentication/CreateAccount"><button type="button" class="createbtn">Create New Account</button></a>
         </div>
-
     </form>
 </div>
 
@@ -119,3 +118,9 @@
         font-size: 14px;
     }
 </style>
+
+<script>
+    gotoCreateAccount(){
+        return View("CreateAccount");
+    }
+</script>

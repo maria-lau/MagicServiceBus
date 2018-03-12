@@ -18,7 +18,7 @@ namespace AuthenticationService
         /// </summary>
         public static void Main()
         {
-            AsyncMain().GetAwaiter().GetResult();
+              AsyncMain().GetAwaiter().GetResult();
         }
 
         /// <summary>
