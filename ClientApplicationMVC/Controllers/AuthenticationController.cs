@@ -7,6 +7,7 @@ using Messages.ServiceBusRequest.Authentication.Requests;
 
 using System.Web.Mvc;
 using System.Diagnostics;
+using Messages.DataTypes;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -32,13 +33,43 @@ namespace ClientApplicationMVC.Controllers
             if(Request.HttpMethod == "POST")
             {
                 string input;
+
+                string username;
+                string password;
+                string address;
+                string email;
+                string pnumber;
+                string type;
+
                 using (var reader = new System.IO.StreamReader(Request.InputStream))
                 {
                     input = reader.ReadToEnd();
                 }
 
                 Debug.WriteLine("Bill Luu is suuuper fat -------------------------------------\n" + input);
+                string[] substrings = input.Split('=','&');
+                username = substrings[1];
+                password = substrings[3];
+                address = substrings[5];
+                email = substrings[7];
+                pnumber = substrings[9];
+                type = substrings[11];
+
+                CreateAccount account = new CreateAccount();
+                account.username = username;
+                account.password = password;
+                account.address = address;
+                account.email = email;
+                account.phonenumber = pnumber;
+                account.type = (AccountType)System.Enum.Parse(typeof(AccountType), type);
+
+                CreateAccountRequest CAR = new CreateAccountRequest(account);
+                
             }
+
+
+
+
             return View("CreateAccount");
             
         }
