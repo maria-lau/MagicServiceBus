@@ -40,13 +40,17 @@ namespace ClientApplicationMVC.Controllers
                 string email;
                 string pnumber;
                 string type;
+                //create connectons
+                ServiceBusResponse SBR;
+                ServiceBusConnection SBC = ConnectionManager.getConnectionObject(Globals.getUser());
 
+                //read input from View
                 using (var reader = new System.IO.StreamReader(Request.InputStream))
                 {
                     input = reader.ReadToEnd();
                 }
 
-                Debug.WriteLine("Bill Luu is suuuper fat -------------------------------------\n" + input);
+                //parse input
                 string[] substrings = input.Split('=','&');
                 username = substrings[1];
                 password = substrings[3];
@@ -55,6 +59,7 @@ namespace ClientApplicationMVC.Controllers
                 pnumber = substrings[9];
                 type = substrings[11];
 
+                //create account object
                 CreateAccount account = new CreateAccount();
                 account.username = username;
                 account.password = password;
@@ -62,13 +67,18 @@ namespace ClientApplicationMVC.Controllers
                 account.email = email;
                 account.phonenumber = pnumber;
                 account.type = (AccountType)System.Enum.Parse(typeof(AccountType), type);
-
                 CreateAccountRequest CAR = new CreateAccountRequest(account);
+
+                if(SBC == null)
+                {
+                    SBR = ConnectionManager.sendNewAccountInfo(CAR);
+                }
+                else
+                {
+                    SBR = SBC.sendNewAccountInfo(CAR);
+                }
                 
             }
-
-
-
 
             return View("CreateAccount");
             
