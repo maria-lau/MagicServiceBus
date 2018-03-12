@@ -6,6 +6,7 @@ using Messages.ServiceBusRequest;
 using Messages.ServiceBusRequest.Authentication.Requests;
 
 using System.Web.Mvc;
+using System.Diagnostics;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -26,7 +27,20 @@ namespace ClientApplicationMVC.Controllers
 
         public ActionResult CreateAccount()
         {
+            //string output = ViewBag.Result;
+            //System.Diagnostics.Debug.WriteLine(output + "Bill Luu is really fat");
+            if(Request.HttpMethod == "POST")
+            {
+                string input;
+                using (var reader = new System.IO.StreamReader(Request.InputStream))
+                {
+                    input = reader.ReadToEnd();
+                }
+
+                Debug.WriteLine("Bill Luu is suuuper fat -------------------------------------\n" + input);
+            }
             return View("CreateAccount");
+            
         }
 
         //This class is incomplete and should be completed by the students in milestone 2
