@@ -17,23 +17,23 @@
     </h1>
     <p id="hi"></p>
     <form method="post">
-        <div class="form-horizontal" style="text-align:center;">
-            <label>Username:  <br /></label>
-            <input type="text" name="uname" required><br /><br />
+        <div class="container" style="text-align:center;">
+            <label>Username:</label><br />
+            <input type="text" name="uname" required><br />
 
-            <label>Password:  <br /></label>
-            <input type="password" name="psw" required><br /><br />
+            <label>Password:</label><br />
+            <input type="password" name="psw" required><br />
 
-            <label>Address:  <br /></label>
-            <input type="text" name="addr" required><br /><br />
+            <label>Address:</label><br />
+            <input type="text" name="addr" required><br />
 
-            <label>Email:  <br /></label>
-            <input type="email" name="email" required><br /><br />
+            <label>Email:</label><br />
+            <input type="email" name="email" required><br />
 
-            <label>Phone Number:  <br /></label>
-            <input type="tel" name="pnum" required><br /><br />
+            <label>Phone:</label><br />
+            <input type="tel" name="pnum" required><br />
 
-            <label>Account Type:  <br /></label>
+            <label>Account Type:  </label>
             <select name="accountType">
                 <option value="user">User</option>
                 <option value="business">Business</option>
@@ -47,7 +47,6 @@
         </div>
     </form>
 </div>
-<<<<<<< HEAD
 
 <style>
 
@@ -67,11 +66,9 @@
         input:focus, textarea:focus {
             border-color: aquamarine;
         }
-=======
->>>>>>> bf539a332211dacb948c3479cf34245cfa212518
 
         /* Full-width inputs */
-        input[type=text], input[type=password] {
+        input[type=text], input[type=password], input[type=tel], input[type=email] {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
@@ -80,32 +77,9 @@
             box-sizing: border-box;
         }
 
-    /* Set a style for all buttons */
-    button {
-        float: none;
-        background-color: #785ff4;
-        color: white;
-        padding: 10px 15px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 200px;
-    }
-
-        /* Add a hover effect for buttons */
-        button:hover {
-            opacity: 0.8;
-        }
-
     /* Add padding to containers */
     .container {
         padding: 16px;
-    }
-
-    /* The "Forgot password" text */
-    span.psw {
-        float: right;
-        padding-top: 16px;
     }
 
     a:hover {
