@@ -19,28 +19,44 @@ namespace ClientApplicationMVC.Controllers
         /// The default method for this controller
         /// </summary>
         /// <returns>The login page</returns>
-        public ActionResult Index()
-        {
-            ViewBag.Message = "Please enter your username and password.";
-            return View("Index");
-        }
-
         public ActionResult CreateAccount()
         {
-            //string output = ViewBag.Result;
-            //System.Diagnostics.Debug.WriteLine(output + "Bill Luu is really fat");
-            if(Request.HttpMethod == "POST")
+            if (Request.HttpMethod == "POST")
             {
+                //Get form data from HTML web page
                 string input;
+                CreateAccount accountInfo = new CreateAccount();
                 using (var reader = new System.IO.StreamReader(Request.InputStream))
                 {
                     input = reader.ReadToEnd();
                 }
 
-                Debug.WriteLine("Bill Luu is suuuper fat -------------------------------------\n" + input);
+                //Parse string
+                string[] substrings = input.Split('=', '&');
+                accountInfo.username = substrings[1];
+                accountInfo.password = substrings[3];
+                accountInfo.address = substrings[5];
+                accountInfo.email = substrings[7];
+                accountInfo.phonenumber = substrings[9];
+                accountInfo.type = (AccountType)System.Enum.Parse(typeof(AccountType), substrings[11]);
+
+                //Check if username/email not already registered
+                bool notRegistered = true;
+                string message = "Account created successfully.";
+                if (notRegistered == true)
+                {
+                    Response.Write("<script>alert('" + message + "')</script>");
+                    return View("Index");
+                }
+                else
+                {
+                    message = "Failed to create account.";
+                    Response.Write("<script>alert('" + message + "')</script>");
+                    return View("CreateAccount");
+                }
             }
+
             return View("CreateAccount");
-            
         }
 
         //This class is incomplete and should be completed by the students in milestone 2
