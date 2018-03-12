@@ -15,33 +15,96 @@
     <h1 class="w3-animate-left">
         <a style=color:#785ff4>Create </a><a style=color:#1185f9>An </a><a style=color:#3ae2fc>Account</a>
     </h1>
-    <p id="hi">
-    </p>
+    <p id="hi"></p>
     <form method="post">
         <div class="container" style="text-align:center;">
-            <text>Username:<br /></text>
+            <label>Username:</label><br />
             <input type="text" name="uname" required><br />
 
-            <text>Password:<br /></text>
+            <label>Password:</label><br />
             <input type="password" name="psw" required><br />
 
-            <text>Address:<br /></text>
+            <label>Address:</label><br />
             <input type="text" name="addr" required><br />
 
-            <text>Email:<br /></text>
-            <input type="email" name="email" required>
+            <label>Email:</label><br />
+            <input type="email" name="email" required><br />
 
-            <text>Phone Number:<br /></text>
-            <input type="tel" name="pnum" required>
+            <label>Phone:</label><br />
+            <input type="tel" name="pnum" required><br />
 
-            <text>Account Type:</text>
-            <input type="radio" name="atype" value="user">User<br />
-            <input type="radio" name="atype" value="business">Business<br />
-            <input type="radio" name="atype" value="notspecified">Other
-
-            <input type="submit" value="create" name="create"/>
-
+            <label>Account Type:  </label>
+            <select name="accountType">
+                <option value="user">User</option>
+                <option value="business">Business</option>
+                <option value="notspecified">Other</option>
+            </select>
+            <br />
+            <br />
+        </div>
+        <div style="text-align:center;">
+            <input type="submit" value="Create Account" />
         </div>
     </form>
 </div>
 
+<style>
+
+    form {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0 auto;
+    }
+
+    input, textarea {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        width: 700px;
+        height: 40px;
+    }
+
+        input:focus, textarea:focus {
+            border-color: aquamarine;
+        }
+
+        /* Full-width inputs */
+        input[type=text], input[type=password], input[type=tel], input[type=email] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+    /* Add padding to containers */
+    .container {
+        padding: 16px;
+    }
+
+    a:hover {
+        color: #634cf7;
+        background-color: transparent;
+        text-decoration: none;
+    }
+
+    h1 {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+    }
+
+    p2 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    p3 {
+        position: absolute;
+        bottom: 100px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+    }
+</style>
