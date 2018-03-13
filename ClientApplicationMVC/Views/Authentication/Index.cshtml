@@ -8,6 +8,11 @@
 <!-- The remainder of this file is to be completed by students in milestone 2 -->
 
 
+@{
+    var response = ViewData["response"];
+}
+
+
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400i,900" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -25,6 +30,12 @@
             <button type="button">Login</button>
             <a href="/Authentication/CreateAccount"><button type="button" class="createbtn">Create New Account</button></a>
         </div>
+
+        <p>
+            Login Message:
+            <br \ />
+            @response
+        </p>
     </form>
 </div>
 
@@ -43,19 +54,19 @@
         height: 40px;
     }
 
-    input:focus, textarea:focus {
-        border-color: aquamarine;
-    }
+        input:focus, textarea:focus {
+            border-color: aquamarine;
+        }
 
-    /* Full-width inputs */
-    input[type=text], input[type=password] {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-    }
+        /* Full-width inputs */
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
 
     /* Set a style for all buttons */
     button {
@@ -69,10 +80,10 @@
         width: 200px;
     }
 
-    /* Add a hover effect for buttons */
-    button:hover {
-        opacity: 0.8;
-    }
+        /* Add a hover effect for buttons */
+        button:hover {
+            opacity: 0.8;
+        }
 
     /* Extra style for the cancel button (red) */
     .createbtn {
