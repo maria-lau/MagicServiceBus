@@ -20,29 +20,30 @@ namespace ClientApplicationMVC.Controllers
         /// <returns>The login page</returns>
         public ActionResult Index()
         {
-
-            string username = String.Format("{0}", Request.Form["uname"]);
-            string password = String.Format("{0}", Request.Form["psw"]);
-            LogInRequest LR = new LogInRequest(username, password);
-            /* Chantal, this is the section that makes it throw an error. 
-             * I wonder if it has to do with how i don't have: if (Request.HttpMethod == "POST")? 
-             
-            ServiceBusConnection connection = ConnectionManager.getConnectionObject(Globals.getUser());
-
-            if (connection == null)
+            if (Request.HttpMethod == "POST")
             {
-                response = ConnectionManager.sendLogIn(LR);
-            }
-            else
-            {
-                response = connection.sendLogIn(LR);
-            }
-            ViewData["response"] = response.response;
-            */
+                string username = String.Format("{0}", Request.Form["uname"]);
+                string password = String.Format("{0}", Request.Form["psw"]);
+
+                LogInRequest LR = new LogInRequest(username, password);
+                ServiceBusResponse response;
+                //Chantal, this is the section that makes it throw an error. 
+                //I wonder if it has to do with how i don't have: if (Request.HttpMethod == "POST")? 
+
+                ServiceBusConnection connection = ConnectionManager.getConnectionObject(Globals.getUser());
+
+                if (connection == null)
+                {
+                    response = ConnectionManager.sendLogIn(LR);
+                }
+                else
+                {
+                    response = connection.sendLogIn(LR);
+                }
+                ViewData["response"] = response.response;
+            }            
             return View("Index");
         }
-
-
 
         public ActionResult CreateAccount()
         {
@@ -79,10 +80,9 @@ namespace ClientApplicationMVC.Controllers
                     SBR = SBC.sendNewAccountInfo(CAR);
                 }
 
-                //Check if username/email not already registered
-                bool notRegistered = true;
+                //Check if account created successfull
                 string message = "Account created successfully.";
-                if (notRegistered == true)
+                if (SBR != null)
                 {
                     Response.Write("<script>alert('" + message + "')</script>");
                     return View("Index");

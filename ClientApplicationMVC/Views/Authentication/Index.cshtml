@@ -20,14 +20,14 @@
     <h1 class="w3-animate-left">
         <a style=color:#785ff4>Call </a><a style=color:#1185f9>it </a><a style=color:#3ae2fc>Local</a> Login Page
     </h1>
-    <form action="action_page.php">
+    <form method="post">
         <div class="container" style="text-align:center;">
             <input type="text" placeholder="Enter Username" name="uname" required>
 
             <input type="password" placeholder="Enter Password" name="psw" required>
         </div>
         <div style="text-align:center;">
-            <button type="button">Login</button>
+            <input type="submit" value="Login" /> 
             <a href="/Authentication/CreateAccount"><button type="button" class="createbtn">Create New Account</button></a>
         </div>
 
