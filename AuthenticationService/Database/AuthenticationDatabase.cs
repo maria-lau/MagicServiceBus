@@ -103,7 +103,6 @@ namespace AuthenticationService.Database
                     MySqlCommand command = new MySqlCommand(query, connection);
                     MySqlDataReader dataReader = command.ExecuteReader();
                     result = dataReader.Read();
-                    message = "Login Successful.";
                     dataReader.Close();
                 }
                 catch (Exception e)
