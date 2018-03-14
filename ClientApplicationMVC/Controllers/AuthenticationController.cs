@@ -21,9 +21,6 @@ namespace ClientApplicationMVC.Controllers
         {
             string username = usernameData;
             string password = passwordData;
-            //System.Diagnostics.Debug.WriteLine("u:" + username + " p:" + password);
-            //string username = String.Format("{0}", Request.Form["uname"]);
-            //string password = String.Format("{0}", Request.Form["psw"]);
 
             LogInRequest LR = new LogInRequest(username, password);
             ServiceBusResponse response;
@@ -47,17 +44,9 @@ namespace ClientApplicationMVC.Controllers
             string addressData, string emailData, string phoneData)
         {
             //Get form data from HTML web page
-            //string input;
             CreateAccount accountInfo = new CreateAccount();
             ServiceBusResponse SBR;
             ServiceBusConnection SBC = ConnectionManager.getConnectionObject(Globals.getUser());
-            //using (var reader = new System.IO.StreamReader(Request.InputStream))
-            //{
-            //    input = reader.ReadToEnd();
-            //}
-
-            //Parse string
-            //string[] substrings = input.Split('=', '&');
 
             accountInfo.username = usernameData;
             accountInfo.password = passwordData;
@@ -65,13 +54,6 @@ namespace ClientApplicationMVC.Controllers
             accountInfo.email = emailData;
             accountInfo.phonenumber = phoneData;
             accountInfo.type = (AccountType)System.Enum.Parse(typeof(AccountType), Request.Form["accountType"]);
-            System.Diagnostics.Debug.WriteLine("\n\n\nuser:" + usernameData + " pass:" + passwordData + " addr:" + addressData + " em:" + emailData + " ph:" + phoneData + "\n\n\n");
-            //accountInfo.username = Request.Form["uname"];// substrings[1];
-            //accountInfo.password = Request.Form["psw"];// substrings[3];
-            //accountInfo.address = Request.Form["addr"];// substrings[5];
-            //accountInfo.email = Request.Form["email"];// substrings[7];
-            //accountInfo.phonenumber = Request.Form["pnum"]; // substrings[9];
-            //accountInfo.type = (AccountType)System.Enum.Parse(typeof(AccountType), Request.Form["accountType"]);// substrings[11]);
 
             //Send account info to bus
             CreateAccountRequest CAR = new CreateAccountRequest(accountInfo);
