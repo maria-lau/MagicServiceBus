@@ -8,9 +8,9 @@
 <!-- The remainder of this file is to be completed by students in milestone 2 -->
 
 
-@{
+@*@{
     var response = ViewData["response"];
-}
+}*@
 
 
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400i,900" rel="stylesheet">
@@ -20,15 +20,12 @@
     <h1 class="w3-animate-left">
         <a style=color:#785ff4>Call </a><a style=color:#1185f9>it </a><a style=color:#3ae2fc>Local</a> Login Page
     </h1>
-    <!--<form method="post">-->
     @using (Html.BeginForm("Login", "Authentication", FormMethod.Post,
         new { id = "loginForm", onsubmit = "return validateLoginForm()" }))
     {
     <div class="container" style="text-align:center;">
         @Html.TextBox("usernameData")
-        <!--<input type="text" placeholder="Enter Username" name="uname" required>-->
         @Html.TextBox("passwordData")
-        <!--<input type="password" placeholder="Enter Password" name="psw" required>-->
         
     </div>
     <div style="text-align:center;">
@@ -37,12 +34,11 @@
     </div>
     }
 
-    <p>
+    @*<p>
         Login Message:
         <br \ />
         @response
-    </p>
-    <!--</form>-->
+    </p>*@
 </div>
 
 <style>

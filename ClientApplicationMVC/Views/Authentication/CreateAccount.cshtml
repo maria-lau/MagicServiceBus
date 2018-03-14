@@ -16,25 +16,24 @@
         <a style=color:#785ff4>Create </a><a style=color:#1185f9>An </a><a style=color:#3ae2fc>Account</a>
     </h1>
     <p id="hi"></p>
-    <!--<form method="post">-->
     @using (Html.BeginForm("CreateAccountPost", "Authentication", FormMethod.Post,
         new { id = "createAccountForm", onsubmit = "return validateCreateAccountForm()" }))
     {
     <div class="container" style="text-align:center;">
         <label>Username:</label><br />
-        @Html.TextBox("usernameData")
+        @Html.TextBox("usernameData")<br />
 
         <label>Password:</label><br />
-        @Html.TextBox("passwordData")
+        @Html.TextBox("passwordData")<br />
 
         <label>Address:</label><br />
-        @Html.TextBox("addressData")
+        @Html.TextBox("addressData")<br />
 
         <label>Email:</label><br />
-        @Html.TextBox("emailData")
+        @Html.TextBox("emailData")<br />
 
         <label>Phone:</label><br />
-        @Html.TextBox("phoneData")
+        @Html.TextBox("phoneData")<br />
 
         <label>Account Type:  </label>
         <select name="accountType">
@@ -49,7 +48,6 @@
             <input type="submit" style="float: none; background-color: #1185f9;color: white; padding: 10px 15px; margin: 8px 0; border: none; cursor: pointer; width: 200px;" value="Create Account" />
         </div>
     }
-    <!--</form>-->
     </div>
 
 <style>
