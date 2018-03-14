@@ -23,22 +23,22 @@
     @using (Html.BeginForm("Login", "Authentication", FormMethod.Post,
         new { id = "loginForm", onsubmit = "return validateLoginForm()" }))
     {
-    <div class="container" style="text-align:center;">
-        @Html.TextBox("usernameData")
-        @Html.TextBox("passwordData")
-        
-    </div>
-    <div style="text-align:center;">
-        <input type="submit" value="Login" />
-        <a href="/Authentication/CreateAccount"><button type="button" class="createbtn">Create New Account</button></a>
-    </div>
+        <div class="container" style="text-align:center;">
+            @Html.TextBox("usernameData")
+            @Html.TextBox("passwordData")
+
+        </div>
+        <div style="text-align:center;">
+            <input type="submit" value="Login" style="float: none; background-color: #785ff4;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px"/>
+            <a href="/Authentication/CreateAccount"><button type="button" class="createbtn">Create New Account</button></a>
+        </div>
     }
 
     @*<p>
-        Login Message:
-        <br \ />
-        @response
-    </p>*@
+            Login Message:
+            <br \ />
+            @response
+        </p>*@
 </div>
 
 <style>
@@ -80,6 +80,7 @@
         border: none;
         cursor: pointer;
         width: 200px;
+        height: 45px;
     }
 
         /* Add a hover effect for buttons */
