@@ -15,5 +15,17 @@ function validateCreateAccountForm() {
     if (createAccountForm.usernameData.value === "") {
         return false;
     }
+    if (createAccountForm.passwordData.value === "") {
+        return false;
+    }
+    if (createAccountForm.addressData.value === "") {
+        return false;
+    }
+    if (createAccountForm.emailData.value === "") {
+        return false;
+    }
+    if (createAccountForm.phoneData.value === "") {
+        return false;
+    }
     return true;
 }

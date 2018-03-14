@@ -64,7 +64,7 @@ namespace ClientApplicationMVC.Controllers
             accountInfo.address = addressData;
             accountInfo.email = emailData;
             accountInfo.phonenumber = phoneData;
-            //accountInfo.type = (AccountType)System.Enum.Parse(typeof(AccountType), Request.Form["accountType"]);// substrings[11]);
+            accountInfo.type = AccountType.user;
             System.Diagnostics.Debug.WriteLine("\n\n\nuser:" + usernameData + " pass:" + passwordData + " addr:" + addressData + " em:" + emailData + " ph:" + phoneData + "\n\n\n");
             //accountInfo.username = Request.Form["uname"];// substrings[1];
             //accountInfo.password = Request.Form["psw"];// substrings[3];
