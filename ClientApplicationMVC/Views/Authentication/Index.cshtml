@@ -21,7 +21,7 @@
         <a style=color:#785ff4>Call </a><a style=color:#1185f9>it </a><a style=color:#3ae2fc>Local</a> Login Page
     </h1>
     <!--<form method="post">-->
-        @using (Html.BeginForm("Login", "Authentication", FormMethod.Get,
+        @using (Html.BeginForm("Login", "Authentication", FormMethod.Post,
             new { id = "loginForm", onsubmit = "return validateLoginForm()" }))
         {
         <div class="container" style="text-align:center;">

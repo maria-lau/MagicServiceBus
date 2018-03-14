@@ -16,6 +16,7 @@ namespace ClientApplicationMVC.Controllers
     {
         // This method is called as a direct result of pressing the submit button on the 
         // HTML page
+        [HttpPost]
         public ActionResult Login(string usernameData, string passwordData)
         {
             string username = usernameData;
