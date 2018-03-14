@@ -14,6 +14,33 @@ namespace ClientApplicationMVC.Controllers
     /// </summary>
     public class AuthenticationController : Controller
     {
+        // This method is called as a direct result of pressing the submit button on the 
+        // HTML page
+        public ActionResult Login(string usernameData, string passwordData)
+        {
+            string username = usernameData;
+            string password = passwordData;
+            System.Diagnostics.Debug.WriteLine("u:" + username + " p:" + password);
+            //string username = String.Format("{0}", Request.Form["uname"]);
+            //string password = String.Format("{0}", Request.Form["psw"]);
+
+            LogInRequest LR = new LogInRequest(username, password);
+            ServiceBusResponse response;
+
+            ServiceBusConnection connection = ConnectionManager.getConnectionObject(Globals.getUser());
+
+            if (connection == null)
+            {
+                response = ConnectionManager.sendLogIn(LR);
+            }
+            else
+            {
+                response = connection.sendLogIn(LR);
+            }
+            ViewData["response"] = response.response;
+            return View("Index");
+        }
+
         /// <summary>
         /// The default method for this controller
         /// </summary>

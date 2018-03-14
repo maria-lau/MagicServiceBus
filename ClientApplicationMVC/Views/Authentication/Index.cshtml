@@ -20,23 +20,29 @@
     <h1 class="w3-animate-left">
         <a style=color:#785ff4>Call </a><a style=color:#1185f9>it </a><a style=color:#3ae2fc>Local</a> Login Page
     </h1>
-    <form method="post">
+    <!--<form method="post">-->
+        @using (Html.BeginForm("Login", "Authentication", FormMethod.Get,
+            new { id = "loginForm", onsubmit = "return validateLoginForm()" }))
+        {
         <div class="container" style="text-align:center;">
-            <input type="text" placeholder="Enter Username" name="uname" required>
-
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            @Html.TextBox("usernameData")
+            <!--<input type="text" placeholder="Enter Username" name="uname" required>-->
+            @Html.TextBox("passwordData")
+            <!--<input type="password" placeholder="Enter Password" name="psw" required>-->
+        
         </div>
         <div style="text-align:center;">
-            <input type="submit" style="float: none; background-color: #785ff4;color: white; padding: 10px 15px; margin: 8px 0; border: none; cursor: pointer; width: 200px;" value="Login"/>
+            <input type="submit" value="Login" />
             <a href="/Authentication/CreateAccount"><button type="button" class="createbtn">Create New Account</button></a>
         </div>
+        }
 
         <p>
             Login Message:
             <br \ />
             @response
         </p>
-    </form>
+    <!--</form>-->
 </div>
 
 <style>
