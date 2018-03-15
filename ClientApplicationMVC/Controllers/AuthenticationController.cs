@@ -69,7 +69,7 @@ namespace ClientApplicationMVC.Controllers
 
             //Check if account created successfull
             string message = "Account created successfully.";
-            if (SBR != null)
+            if (SBR.result == true)
             {
                 Response.Write("<script>alert('" + message + "')</script>");
                 return View("Index");
