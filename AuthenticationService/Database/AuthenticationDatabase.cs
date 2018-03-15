@@ -104,6 +104,14 @@ namespace AuthenticationService.Database
                     MySqlDataReader dataReader = command.ExecuteReader();
                     result = dataReader.Read();
                     dataReader.Close();
+                    if(result == true)
+                    {
+                        message = "Login successful.";
+                    }
+                    else
+                    {
+                        message = "Login unsuccessful.";
+                    }
                 }
                 catch (Exception e)
                 {
