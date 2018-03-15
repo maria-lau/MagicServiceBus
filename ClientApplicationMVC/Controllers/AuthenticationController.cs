@@ -68,16 +68,16 @@ namespace ClientApplicationMVC.Controllers
             }
 
             //Check if account created successfull
-            /*string message = "Account created successfully.";*/
-            if (SBR != null)
+            string message = "Account created successfully.";
+            if (SBR.result == true)
             {
-               /* Response.Write("<script>alert('" + message + "')</script>");*/
+               Response.Write("<script>alert('" + message + "')</script>");
                 return View("Index");
             }
             else
             {
-                /*message = "Failed to create account.";
-                Response.Write("<script>alert('" + message + "')</script>");*/
+                message = "Failed to create account.";
+                Response.Write("<script>alert('" + message + "')</script>");
                 return View("CreateAccount");
             }
         }
