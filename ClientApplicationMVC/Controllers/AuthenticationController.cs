@@ -35,8 +35,12 @@ namespace ClientApplicationMVC.Controllers
             {
                 response = connection.sendLogIn(LR);
             }
-            ViewData["response"] = response.response;
-            return View("Index");
+            //ViewData["response"] = response.response;
+
+
+            Response.Write("<script>alert('" + response.response + "')</script>");
+
+            return View("../Home/Index");
         }
 
         [HttpPost]

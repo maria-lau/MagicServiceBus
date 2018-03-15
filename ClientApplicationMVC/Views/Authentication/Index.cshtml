@@ -8,9 +8,9 @@
 <!-- The remainder of this file is to be completed by students in milestone 2 -->
 
 
-@{
+@*@{
     var response = ViewData["response"];
-}
+}*@
 
 
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400i,900" rel="stylesheet">
@@ -25,7 +25,7 @@
     {
         <div class="container" style="text-align:center;">
             @Html.TextBox("usernameData", null, new { @placeholder = "Enter Username" })
-            @Html.TextBox("passwordData", null, new { @placeholder = "Enter Password" })
+            @Html.Password("passwordData", null, new { @placeholder = "Enter Password" })
 
         </div>
         <div style="text-align:center;">
@@ -33,11 +33,11 @@
             <a href="/Authentication/CreateAccount"><button type="button" class="createbtn">Create New Account</button></a>
         </div>
     }
-        <p>
+        @*<p>
             Login Message:
             <br \ />
                 @response
-        </p>
+        </p>*@
 </div>
 
 <style>
