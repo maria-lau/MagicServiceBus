@@ -71,7 +71,7 @@ namespace ClientApplicationMVC.Controllers
             string message = "Account created successfully.";
             if (SBR.result == true)
             {
-                Response.Write("<script>alert('" + message + "')</script>");
+               Response.Write("<script>alert('" + message + "')</script>");
                 return View("Index");
             }
             else
