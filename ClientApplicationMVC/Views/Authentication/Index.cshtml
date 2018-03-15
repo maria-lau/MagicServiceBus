@@ -24,8 +24,8 @@
         new { id = "loginForm", onsubmit = "return validateLoginForm()" }))
     {
         <div class="container" style="text-align:center;">
-            @Html.TextBox("usernameData")
-            @Html.TextBox("passwordData")
+            @Html.TextBox("usernameData", null, new { @placeholder = "Enter Username" })
+            @Html.TextBox("passwordData", null, new { @placeholder = "Enter Password" })
 
         </div>
         <div style="text-align:center;">
