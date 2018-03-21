@@ -35,15 +35,13 @@ namespace ClientApplicationMVC.Models
         public CompanySearchResponse searchCompanyByName(CompanySearchRequest request)
         {
             send(request);
-            //need to fix
-            return null;
+            return (CompanySearchResponse) readUntilEOF();
         }
 
         public GetCompanyInfoResponse getCompanyInfo(GetCompanyInfoRequest request)
         {
             send(request);
-            //need to fix
-            return null;
+            return (GetCompanyInfoResponse) readUntilEOF();
         }
 
         #endregion CompanyListingsControllerMessages

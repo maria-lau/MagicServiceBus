@@ -75,6 +75,8 @@ namespace AuthenticationService.Communication
         /// </summary>
         /// <param name="requestParameters">Information about the request</param>
         /// <returns>A string representing the result of the request</returns>
+        /// 
+        //change this
         private ServiceBusResponse executeRequest(ServiceBusRequest request)
         {
             switch (request.serviceRequested)

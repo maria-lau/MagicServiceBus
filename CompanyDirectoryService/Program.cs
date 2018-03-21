@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+
+
+using NServiceBus;
+
 
 namespace CompanyDirectoryService
 {
@@ -10,7 +12,7 @@ namespace CompanyDirectoryService
     {
         static void Main()
         {
-
+            AsyncMain().GetAwaiter().GetResult();
         }
     }
 }
