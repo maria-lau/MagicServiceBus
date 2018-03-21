@@ -3,6 +3,9 @@ using Messages.DataTypes;
 using Messages.ServiceBusRequest;
 using Messages.ServiceBusRequest.Authentication.Requests;
 using Messages.ServiceBusRequest.Echo.Requests;
+using Messages.DataTypes.Database.CompanyDirectory;
+using Messages.ServiceBusRequest.CompanyDirectory.Responses;
+using Messages.ServiceBusRequest.CompanyDirectory.Requests;
 
 using System;
 using System.IO;
@@ -26,6 +29,24 @@ namespace ClientApplicationMVC.Models
         }
 
         #region ServiceBusMessages
+
+        #region CompanyListingsControllerMessages
+
+        public CompanySearchResponse searchCompanyByName(CompanySearchRequest request)
+        {
+            send(request);
+            //need to fix
+            return null;
+        }
+
+        public GetCompanyInfoResponse getCompanyInfo(GetCompanyInfoRequest request)
+        {
+            send(request);
+            //need to fix
+            return null;
+        }
+
+        #endregion CompanyListingsControllerMessages
 
         #region AuthenticationServiceMessages
 
