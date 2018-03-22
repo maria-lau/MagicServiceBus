@@ -3,6 +3,7 @@ using Messages.DataTypes;
 using Messages.ServiceBusRequest;
 using Messages.ServiceBusRequest.Authentication;
 using Messages.ServiceBusRequest.Echo;
+using Messages.ServiceBusRequest.CompanyDirectory;
 
 using NServiceBus;
 
@@ -16,7 +17,6 @@ using System.Security.Authentication;
 using System.Text;
 using System.Threading;
 using System.Security.Cryptography.X509Certificates;
-using Messages.ServiceBusRequest.CompanyDirectory;
 
 namespace AuthenticationService.Communication
 {
