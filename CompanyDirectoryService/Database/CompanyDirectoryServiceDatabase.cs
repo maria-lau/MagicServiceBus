@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Messages;
 using Messages.Database;
 using Messages.DataTypes;
+using Messages.DataTypes.Database.CompanyDirectory;
 using Messages.NServiceBus.Commands;
 using Messages.NServiceBus.Events;
 using Messages.ServiceBusRequest;
@@ -29,34 +30,35 @@ namespace CompanyDirectoryService.Database
             return instance;
         }
 
-        public ServiceBusResponse insertNewCompany(CreateAccount info)
+        public ServiceBusResponse insertNewCompany(CompanyInstance info)
         {
+            System.Diagnostics.Debug.WriteLine("-----------------Starting insertNewCompany----------------");
+           
             bool result = false;
             string message = "";
-            if(openConnection() == true && info.type == AccountType.business)
+            if (openConnection() == true)
             {
-                string query = @"INSERT INTO company(username, password, address, phonenumber, email, type)" +
-                    @"VALUES('" + info.username + @"', '" + info.password +
-                    @"', '" + info.address + @"', '" + info.phonenumber + 
-                    @"', '" + info.email + @"', '" + info.type.ToString() + @"')";
+                string query = @"INSERT INTO company(companyname, phonenumber, email, location) " +
+                    @"VALUES('" + info.companyName + @"', '" + info.phoneNumber +
+                    @"', '" + info.email + @"', '" + info.locations[0] + @"');";
 
                 try
                 {
                     MySqlCommand command = new MySqlCommand(query, connection);
-                    command.BeginExecuteNonQuery();
-                    result = true; 
+                    command.ExecuteNonQuery();
+                    result = true;
                 }
-                catch(MySqlException e)
+                catch (MySqlException e)
                 {
-                    Messages.Debug.consoleMsg("Unable to complete insert new company into database." +
-                        " Error: " + e.Number + e.Message);
-                    Messages.Debug.consoleMsg("The query was: " + query);
+                    Messages.Debug.consoleMsg("Unable to complete insert new user into database." +
+                        " Error :" + e.Number + e.Message);
+                    Messages.Debug.consoleMsg("The query was:" + query);
                     message = e.Message;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    Messages.Debug.consoleMsg("Unable to complete insert new comapny into database." +
-                        " Error: " + e.Message);
+                    Messages.Debug.consoleMsg("Unable to Unable to complete insert new user into database." +
+                        " Error:" + e.Message);
                     message = e.Message;
                 }
                 finally
@@ -91,28 +93,12 @@ namespace CompanyDirectoryService.Database
                 {
                     new Column
                     (
-                        "username", "VARCHAR(50)",
+                        "companyname", "VARCHAR(50)",
                         new string[] 
                         {
                             "NOT NULL",
                             "UNIQUE"
                         },true
-                    ),
-                    new Column
-                    (
-                        "password", "VARCHAR(50)",
-                        new string[]
-                        {
-                            "NOT NULL"
-                        }, false
-                    ),
-                    new Column
-                    (
-                        "address", "VARCHAR(50)",
-                        new string[]
-                        {
-                            "NOT NULL"
-                        }, false
                     ),
                     new Column
                     (
@@ -129,6 +115,14 @@ namespace CompanyDirectoryService.Database
                         {
                             "NOT NULL",
                             "UNIQUE"
+                        }, false
+                    ),
+                    new Column
+                    (
+                        "location", "VARCHAR(50)",
+                        new string[]
+                        {
+                            "NOT NULL"
                         }, false
                     )
                 }

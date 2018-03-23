@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace AuthenticationService.Communication
 {
-    //TODO: subscribe to creating an account. Might not be in this file.
     partial class ClientConnection
     {
         private ServiceBusResponse companyRequest(CompanyDirectoryServiceRequest request)
