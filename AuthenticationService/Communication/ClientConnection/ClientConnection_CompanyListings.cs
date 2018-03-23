@@ -31,9 +31,18 @@ namespace AuthenticationService.Communication
 
         private ServiceBusResponse companySearch(CompanySearchRequest request)
         {
-            string searchKey = request.searchDeliminator;
-            //Search database
-            return new ServiceBusResponse(true, "Search for local companies...");
+            if (authenticated == false)
+            {
+                return new ServiceBusResponse(false, "Error: You must be logged in to use the search companies functionality.");
+            }
+
+            string searchKey = request.searchDeliminator; //how do i send this to search method in CompanyListingController
+            
+            // This class indicates to the request function where 
+            SendOptions sendOptions = new SendOptions();
+            sendOptions.SetDestination("CompanyListings");
+
+            return requestingEndpoint.Request<ServiceBusResponse>(request, sendOptions).ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         private ServiceBusResponse getCompanyInfo(GetCompanyInfoRequest request)
