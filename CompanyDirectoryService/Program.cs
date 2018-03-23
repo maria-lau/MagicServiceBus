@@ -26,7 +26,7 @@ namespace CompanyDirectoryService
             Console.Title = "CompanyDirectory";
 
             //Create a new Endpoint configuration with the name "Echo"
-            EndpointConfiguration endpointConfiguration = new EndpointConfiguration("");
+            EndpointConfiguration endpointConfiguration = new EndpointConfiguration("CompanyDirectory");
 
             //These two lines prevemt the endpoint configuration from scanning the MySql dll. 
             //This is done because it speeds up the startup time, and it prevents a rare but 
