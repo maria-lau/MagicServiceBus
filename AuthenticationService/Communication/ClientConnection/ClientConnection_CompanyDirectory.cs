@@ -39,17 +39,14 @@ namespace AuthenticationService.Communication
                 return new ServiceBusResponse(false, "Error: You must be logged in to use the search companies functionality.");
             }
 
-            CompanySearchEvent searchEvent= new CompanySearchEvent
-            {
-                searchDelimiter = request.searchDeliminator,
-                username = username
-            };
+            // This class indicates to the request function where 
+            SendOptions sendOptions = new SendOptions();
+            sendOptions.SetDestination("CompanyDirectory");
 
-            //This function publishes the EchoEvent class. All endpoint instances that subscribed to these events prior
-            //to the event being published will have their respictive handler functions called with the EchoEvent object
-            //as one of the parameters
-            eventPublishingEndpoint.Publish(searchEvent);
-            return new CompanySearchResponse(true, request.searchDeliminator, new CompanyList());
+            // The Request<> funtion itself is an asynchronous operation. However, since we do not want to continue execution until the Request
+            // function runs to completion, we call the ConfigureAwait, GetAwaiter, and GetResult functions to ensure that this thread
+            // will wait for the completion of Request before continueing. 
+            return requestingEndpoint.Request<CompanySearchResponse>(request, sendOptions).ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         private ServiceBusResponse getCompanyInfo(GetCompanyInfoRequest request)
