@@ -3,6 +3,8 @@ using Messages.NServiceBus.Events;
 using Messages.ServiceBusRequest;
 using Messages.ServiceBusRequest.CompanyDirectory;
 using Messages.ServiceBusRequest.CompanyDirectory.Requests;
+using Messages.ServiceBusRequest.CompanyDirectory.Responses;
+using Messages.DataTypes.Database.CompanyDirectory;
 
 using NServiceBus;
 
@@ -31,18 +33,23 @@ namespace AuthenticationService.Communication
 
         private ServiceBusResponse companySearch(CompanySearchRequest request)
         {
+            //Check that user is logged in
             if (authenticated == false)
             {
                 return new ServiceBusResponse(false, "Error: You must be logged in to use the search companies functionality.");
             }
 
-            string searchKey = request.searchDeliminator; //how do i send this to search method in CompanyListingController
+            CompanySearchEvent searchEvent= new CompanySearchEvent
+            {
+                searchDelimiter = request.searchDeliminator,
+                username = username
+            };
 
-            // This class indicates to the request function where 
-            SendOptions sendOptions = new SendOptions();
-            sendOptions.SetDestination("CompanyListings");
-
-            return requestingEndpoint.Request<ServiceBusResponse>(request, sendOptions).ConfigureAwait(false).GetAwaiter().GetResult();
+            //This function publishes the EchoEvent class. All endpoint instances that subscribed to these events prior
+            //to the event being published will have their respictive handler functions called with the EchoEvent object
+            //as one of the parameters
+            eventPublishingEndpoint.Publish(searchEvent);
+            return new CompanySearchResponse(true, request.searchDeliminator, new CompanyList());
         }
 
         private ServiceBusResponse getCompanyInfo(GetCompanyInfoRequest request)
