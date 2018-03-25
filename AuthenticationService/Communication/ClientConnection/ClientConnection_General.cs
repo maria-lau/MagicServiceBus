@@ -3,6 +3,7 @@ using Messages.DataTypes;
 using Messages.ServiceBusRequest;
 using Messages.ServiceBusRequest.Authentication;
 using Messages.ServiceBusRequest.Echo;
+using Messages.ServiceBusRequest.CompanyDirectory;
 
 using NServiceBus;
 
@@ -16,7 +17,6 @@ using System.Security.Authentication;
 using System.Text;
 using System.Threading;
 using System.Security.Cryptography.X509Certificates;
-using Messages.ServiceBusRequest.CompanyDirectory;
 
 namespace AuthenticationService.Communication
 {
@@ -57,7 +57,7 @@ namespace AuthenticationService.Communication
                 ServiceBusRequest request = readUntilEOF();
 
                 ServiceBusResponse responseMessage = executeRequest(request);
-
+                System.Diagnostics.Debug.WriteLine("--------------------------------request executed---------------------");
                 sendToClient(responseMessage);
 
                 if (authenticated == false)
@@ -78,6 +78,7 @@ namespace AuthenticationService.Communication
         /// <returns>A string representing the result of the request</returns>
         private ServiceBusResponse executeRequest(ServiceBusRequest request)
         {
+            System.Diagnostics.Debug.WriteLine("--------------------------------executeRequest---------------------");
             switch (request.serviceRequested)
             {
                 case (Service.Authentication):
@@ -88,6 +89,7 @@ namespace AuthenticationService.Communication
                     return companyRequest((CompanyDirectoryServiceRequest)request);
                 default:
                     return new ServiceBusResponse(false, "Error: Invalid request. Did not specify a valid service type. Specified type was: " + request.serviceRequested.ToString());
+                
             }
         }
 
