@@ -18,7 +18,7 @@ namespace Messages.Database
         protected AbstractDatabase()
         {
             mutex = new Mutex(false);
-            connection = new MySqlConnection("SERVER=35.230.0.80;DATABASE=mysql;UID=" + UID + ";AUTO ENLIST=false;PASSWORD=" + Password);
+            connection = new MySqlConnection("SERVER=localhost;DATABASE=mysql;UID=" + UID + ";AUTO ENLIST=false;PASSWORD=" + Password);
             createDB();
         }
 
@@ -33,7 +33,7 @@ namespace Messages.Database
 
             if(connection == null)
             {
-                connection = new MySqlConnection("SERVER=35.230.0.80;DATABASE=mysql;UID=" + UID + ";AUTO ENLIST=false;PASSWORD=" + Password);
+                connection = new MySqlConnection("SERVER=localhost;DATABASE=mysql;UID=" + UID + ";AUTO ENLIST=false;PASSWORD=" + Password);
             }
             
             if (openConnection() == true)
@@ -51,7 +51,7 @@ namespace Messages.Database
                     {
                         Debug.consoleMsg("Database already exists.");
                         closeConnection();
-                        connection = new MySqlConnection("SERVER=35.230.0.80;DATABASE=" + databaseName + ";UID=" + UID + ";AUTO ENLIST=false;PASSWORD=" + Password);
+                        connection = new MySqlConnection("SERVER=localhost;DATABASE=" + databaseName + ";UID=" + UID + ";AUTO ENLIST=false;PASSWORD=" + Password);
                         return;
                     }
                     Debug.consoleMsg("Unable to create database"
@@ -81,7 +81,7 @@ namespace Messages.Database
                 }
 
                 closeConnection();
-                connection = new MySqlConnection("SERVER=35.230.0.80;DATABASE=" + databaseName + ";UID=" + UID + ";AUTO ENLIST=false;PASSWORD=" + Password);
+                connection = new MySqlConnection("SERVER=localhost;DATABASE=" + databaseName + ";UID=" + UID + ";AUTO ENLIST=false;PASSWORD=" + Password);
             }
         }
 

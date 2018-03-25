@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B9F7B7C5-CB64-4D56-A95D-3C0F7BA15D0B}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Messages</RootNamespace>
-    <AssemblyName>Messages</AssemblyName>
+    <ProjectGuid>{32EF729D-C84D-4BD4-B8FF-81D5A53F393E}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>CompanyDirectoryService</RootNamespace>
+    <AssemblyName>CompanyDirectoryService</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,6 +34,10 @@
   <ItemGroup>
     <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.10.6\lib\net452\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NServiceBus.Callbacks, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NServiceBus.Callbacks.2.0.1\lib\net452\NServiceBus.Callbacks.dll</HintPath>
     </Reference>
     <Reference Include="NServiceBus.Core, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
       <HintPath>..\packages\NServiceBus.6.4.3\lib\net452\NServiceBus.Core.dll</HintPath>
@@ -47,7 +52,6 @@
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -57,36 +61,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database\AbstractDatabase.cs" />
-    <Compile Include="Database\Column.cs" />
-    <Compile Include="Database\Table.cs" />
-    <Compile Include="DataTypes\Database\CompanyDirectory\CompanyInstance.cs" />
-    <Compile Include="DataTypes\Database\CompanyDirectory\CompanyList.cs" />
-    <Compile Include="DataTypes\Enums.cs" />
-    <Compile Include="DataTypes\SharedData.cs" />
-    <Compile Include="Debug\Debug.cs" />
-    <Compile Include="NServiceBus\Commands\CreateAccount.cs" />
-    <Compile Include="NServiceBus\Events\AccountCreated.cs" />
-    <Compile Include="NServiceBus\Events\AsIsEchoEvent.cs" />
-    <Compile Include="NServiceBus\Events\ClientLogInAttempted.cs" />
+    <Compile Include="Database\CompanyDirectoryServiceDatabase.cs" />
+    <Compile Include="Handlers\CreateAccountHandler.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceBusRequest\Authentication\AuthenticationServiceRequest.cs" />
-    <Compile Include="ServiceBusRequest\Authentication\Requests\CreateAccountRequest.cs" />
-    <Compile Include="ServiceBusRequest\Authentication\Requests\LogInRequest.cs" />
-    <Compile Include="ServiceBusRequest\CompanyDirectory\CompanyDirectoryServiceRequest.cs" />
-    <Compile Include="ServiceBusRequest\CompanyDirectory\Requests\CompanySearchRequest.cs" />
-    <Compile Include="ServiceBusRequest\CompanyDirectory\Requests\GetCompanyInfoRequest.cs" />
-    <Compile Include="ServiceBusRequest\CompanyDirectory\Responses\CompanySearchResponse.cs" />
-    <Compile Include="ServiceBusRequest\CompanyDirectory\Responses\GetCompanyInfoResponse.cs" />
-    <Compile Include="ServiceBusRequest\Echo\EchoServiceRequest.cs" />
-    <Compile Include="ServiceBusRequest\Echo\Requests\AsIsEchoRequest.cs" />
-    <Compile Include="ServiceBusRequest\Echo\Requests\ReverseEchoRequest.cs" />
-    <Compile Include="ServiceBusRequest\ServiceBusRequest.cs" />
-    <Compile Include="ServiceBusRequest\ServiceBusResponse.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Messages\Messages.csproj">
+      <Project>{b9f7b7c5-cb64-4d56-a95d-3c0f7ba15d0b}</Project>
+      <Name>Messages</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="docs\MySqlCommand.xml" />
@@ -101,5 +89,6 @@
     <Content Include="docs\MySqlParameterCollection.xml" />
     <Content Include="docs\MySqlTransaction.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
