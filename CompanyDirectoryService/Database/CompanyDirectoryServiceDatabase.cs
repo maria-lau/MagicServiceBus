@@ -30,6 +30,36 @@ namespace CompanyDirectoryService.Database
             return instance;
         }
 
+        public CompanyList GetCompanyList(String delimiter)
+        {
+            
+            if(openConnection() == true)
+            {
+
+                string query = @"SELECT * FROM company WHERE companyname LIKE '%" + delimiter + "%';";
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+                List<String> values = new List<String>();
+
+                while(reader.Read())
+                {
+                    values.Add((String)reader["companyname"]);
+                }
+
+                CompanyList value = new CompanyList();
+                value.companyNames = values.ToArray();
+                closeConnection();
+                return value;
+            }
+            else
+            {
+                Debug.consoleMsg("unable to connect to database");
+                return null;
+            }
+
+        }
+
         public ServiceBusResponse insertNewCompany(CompanyInstance info)
         {
             System.Diagnostics.Debug.WriteLine("-----------------Starting insertNewCompany----------------");

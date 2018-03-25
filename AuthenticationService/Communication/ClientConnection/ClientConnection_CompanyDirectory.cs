@@ -20,6 +20,7 @@ namespace AuthenticationService.Communication
     {
         private ServiceBusResponse companyRequest(CompanyDirectoryServiceRequest request)
         {
+            System.Diagnostics.Debug.WriteLine("--------------------------------Handling request---------------------");
             switch (request.requestType)
             {
                 case (CompanyDirectoryRequest.CompanySearch):
@@ -33,16 +34,18 @@ namespace AuthenticationService.Communication
 
         private ServiceBusResponse companySearch(CompanySearchRequest request)
         {
+            System.Diagnostics.Debug.WriteLine("--------------------------------inside company search---------------------");
             //Check that user is logged in
             if (authenticated == false)
             {
                 return new ServiceBusResponse(false, "Error: You must be logged in to use the search companies functionality.");
             }
-
+            System.Diagnostics.Debug.WriteLine("--------------------------------authenticated---------------------");
             // This class indicates to the request function where 
             SendOptions sendOptions = new SendOptions();
+            System.Diagnostics.Debug.WriteLine("--------------------------------SendOptions completed---------------------");
             sendOptions.SetDestination("CompanyDirectory");
-
+            System.Diagnostics.Debug.WriteLine("--------------------------------set destination completed---------------------");
             // The Request<> funtion itself is an asynchronous operation. However, since we do not want to continue execution until the Request
             // function runs to completion, we call the ConfigureAwait, GetAwaiter, and GetResult functions to ensure that this thread
             // will wait for the completion of Request before continueing. 
