@@ -35,7 +35,30 @@ namespace CompanyDirectoryService.Database
         //CHANTAL DO THIS FUNCTION
         public CompanyInstance GetCompanyInfo(CompanyInstance info)
         {
-            return null;
+            if (openConnection() == true)
+            {
+                string query = @"SELECT * FROM company WHERE companyname = '" + info.companyName + "';";
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+                CompanyInstance value = new CompanyInstance(info.companyName);
+                //String[] cLocations = new String[1];
+
+                while (reader.Read())
+                {
+                    value.phoneNumber = (String)reader["phonenumber"];
+                    value.email = (String)reader["email"];
+                    value.locations[0] = (String)reader["location"];
+                }
+
+                closeConnection();
+                return value;
+            }
+            else
+            {
+                Debug.consoleMsg("unable to connect to database");
+                return null;
+            }
         }
 
         public CompanyList GetCompanyList(String delimiter)
