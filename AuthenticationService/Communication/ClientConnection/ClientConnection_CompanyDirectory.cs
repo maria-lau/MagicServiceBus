@@ -54,7 +54,15 @@ namespace AuthenticationService.Communication
 
         private ServiceBusResponse getCompanyInfo(GetCompanyInfoRequest request)
         {
-            return new ServiceBusResponse(true, "Getting Company Info");
+            if (authenticated == false)
+            {
+                return new ServiceBusResponse(false, "Error: You must be logged in to use the search companies functionality.");
+            }
+            SendOptions sendOptions = new SendOptions();
+            sendOptions.SetDestination("CompanyDirectory");
+
+            return requestingEndpoint.Request<GetCompanyInfoResponse>(request, sendOptions).ConfigureAwait(false).GetAwaiter().GetResult();
+            //return new ServiceBusResponse(true, "Getting Company Info");
         }
     }
 }

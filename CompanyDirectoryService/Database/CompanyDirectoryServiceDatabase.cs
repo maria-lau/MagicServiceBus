@@ -30,6 +30,14 @@ namespace CompanyDirectoryService.Database
             return instance;
         }
 
+
+
+        //CHANTAL DO THIS FUNCTION
+        public CompanyInstance GetCompanyInfo(CompanyInstance info)
+        {
+            return null;
+        }
+
         public CompanyList GetCompanyList(String delimiter)
         {
             
