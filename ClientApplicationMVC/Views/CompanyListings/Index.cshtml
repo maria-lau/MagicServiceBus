@@ -1,37 +1,92 @@
-﻿
-<!--
+﻿<!--
     This page will be used to search for and display Company names
 -->
 @{
     ViewBag.Title = "Index";
 }
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400i,900" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-<h2>Search for companies by name</h2>
-
-@using (Html.BeginForm("Search", "CompanyListings"))
-{
-    <p>@ViewBag.Message</p>
-    <br />
-
-    @Html.TextBox("textCompanyName")
-    <input type="submit" value="Search" />
-    <br /><br /><br />
-
-    
-}
-@if (ViewBag.Companylist != null)
-{
-    if (ViewBag.Companylist.companyNames.Length == 0)
+<div class="w3-container w3-display-middle">
+    <h1 class="w3-animate-left">
+        <a style=color:#785ff4>Search </a><a style=color:#1185f9>Company </a><a style=color:#3ae2fc>Directory</a>
+    </h1>
+    @using (Html.BeginForm("Search", "CompanyListings"))
     {
-        <p>Your search did not retrun any results. Please try again.</p>
+        <p>@ViewBag.Message</p>
+        <br />
+        <div class="container" style="text-align:center;">
+            @Html.TextBox("textCompanyName", null, new { @placeholder = "Enter a Company Name" })
+        </div>
+        <div style="text-align:center;">
+            <input type="submit" value="Search" style="float: none; background-color: #785ff4;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px" />
+        </div> <br /><br /><br />
+
+
     }
-    else
+    @if (ViewBag.Companylist != null)
     {
-        <p style="font-size:larger">Results:</p> <br />
-        foreach (string item in ViewBag.Companylist.companyNames)
+        if (ViewBag.Companylist.companyNames.Length == 0)
         {
-            @Html.ActionLink(item, "DisplayCompany/" + item, "CompanyListings")
-            <br/>
+            <p>Your search did not retrun any results. Please try again.</p>
+        }
+        else
+        {
+            <p style="font-size:larger">Results:</p> <br />
+            foreach (string item in ViewBag.Companylist.companyNames)
+            {
+                @Html.ActionLink(item, "DisplayCompany/" + item, "CompanyListings")
+                <br />
+            }
         }
     }
-}
+</div>
+
+<style>
+    .container {
+        padding: 16px;
+    }
+
+    form {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0 auto;
+    }
+
+    input, textarea {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        width: 700px;
+        height: 40px;
+    }
+
+        input:focus, textarea:focus {
+            border-color: aquamarine;
+        }
+
+    h1 {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+    }
+
+    p {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    p2 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    p3 {
+        position: absolute;
+        bottom: 100px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+    }
+</style>
