@@ -15,7 +15,7 @@ namespace CompanyDirectoryService.Handlers
     {
         public Task Handle(GetCompanyInfoRequest message, IMessageHandlerContext context)
         {
-            CompanyInstance instance = CompanyDirectoryServiceDatabase.getInstance().GetCompanyInfo(message);
+            CompanyInstance instance = CompanyDirectoryServiceDatabase.getInstance().GetCompanyInfo(message.companyInfo);
             String response = "";
 
             return context.Reply(new GetCompanyInfoResponse(true, response, instance));
