@@ -6,9 +6,9 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="~/Scripts/CompanyListings/CompanyListingsFunctions.js"></script>
-<div class="w3-cell-row" style="width:100%">
-    <div class="w3-container">
-        <h1 id="CompanyNameDisplay">@ViewBag.CompanyName</h1><br />
+
+    <div id="left" class="w3-container">
+        <h1 id="CompanyNameDisplay" style="padding-top:20px;">@ViewBag.CompanyName</h1><br />
 
         <p>
             Email: @ViewBag.CompanyInfo.email
@@ -23,90 +23,97 @@
             <br />
         }
 
+        <br /><br />
         <p>Write a review for @ViewBag.CompanyName</p>
         @using (Html.BeginForm("SaveReview", "CompanyDisplay", FormMethod.Post,
-             new { id = "reviewForm" }))
+         new { id = "reviewForm" }))
         {
-             <div class="container" style="text-align:left;">
-                 @Html.TextBox("reviewData", null, new { @placeholder = "Enter Review" })
-              </div>
-             <div style="text-align:center;">
-                 <input type="submit" value="Submit" style="float: none; background-color: #785ff4;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px" />
-             </div><br />
+
+            @Html.TextBox("reviewData", null, new { @placeholder = "Enter Review" })
+            <input type="submit" value="Submit" style="float: none; background-color: #785ff4;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px" />
+            <br />
         }
 
-        <div style="height:100px">
-            <p>Start a conversation with @ViewBag.CompanyName</p>
-            <div style="width:400px; float:left">
-                <textarea class="messagetextarea" id="textUserMessage" placeholder="Enter your message here." rows="3"></textarea>
-            </div>
-            <div style="text-align:center;">
-                <button class="sendbutton" id="SendMessageButton" style="float: none; background-color: #1185f9;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px">Send</button>
-            </div>
-        </div>
+        <p>Start a conversation with @ViewBag.CompanyName</p>
+        <textarea class="messagetextarea" id="textUserMessage" placeholder="Enter your message here." rows="3"></textarea>
+        <button class="sendbutton" id="SendMessageButton" style=" font-family: 'Montserrat', sans-serif; font-weight:600;font-size:14px;float: none; background-color: #1185f9;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px">Send</button>
         <br />
-    <div class="w3-container" style="height:300px;">
-        <p>Where reviews will go.</p>
-        </div>
+
     </div>
+    <div id="right" class="w3-container" style="height:300px;">
+        <h1>@ViewBag.companyReviews</h1>
     </div>
-    <style>
-        .container {
-            padding: 16px;
+
+<style>
+
+
+    #left {
+        padding-top: 100px;
+        height: auto;
+        float: left;
+    }
+
+    #right {
+        padding-top: 100px;
+        height: auto;
+        float: right;
+    }
+    .container {
+        padding: 16px;
+    }
+
+    form {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0 auto;
+    }
+
+    input, textarea {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        width: 700px;
+        height: 40px;
+    }
+
+        /* Full-width inputs */
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
         }
 
-        form {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0 auto;
-        }
+    h1 {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+    }
 
-        input, textarea {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 500;
-            font-size: 14px;
-            width: 700px;
-            height: 40px;
-        }
+    p {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+    }
 
-            /* Full-width inputs */
-            input[type=text], input[type=password] {
-                width: 100%;
-                padding: 12px 20px;
-                margin: 8px 0;
-                display: inline-block;
-                border: 1px solid #ccc;
-                box-sizing: border-box;
-            }
+    p1 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+    }
 
-        h1 {
-            text-align: center;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-        }
+    p2 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+    }
 
-        p {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        p1 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            font-size: 14px;
-        }
-
-        p2 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        p3 {
-            position: absolute;
-            bottom: 100px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 14px;
-        }
-    </style>
+    p3 {
+        position: absolute;
+        bottom: 100px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+    }
+</style>
