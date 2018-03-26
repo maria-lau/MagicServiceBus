@@ -7,6 +7,7 @@ using Messages.ServiceBusRequest.CompanyDirectory.Requests;
 using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Net.Http;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -88,6 +89,17 @@ namespace ClientApplicationMVC.Controllers
             GetCompanyInfoRequest infoRequest = new GetCompanyInfoRequest(new CompanyInstance(id));
             GetCompanyInfoResponse infoResponse = connection.getCompanyInfo(infoRequest);
             ViewBag.CompanyInfo = infoResponse.companyInfo;
+
+            // Call API to retrieve company reviews
+            string company = ViewBag.CompanyName;
+            string apiurl = "http://35.188.169.187/api/review/getreview/{companyName:\"" + company + "\"}";
+            //System.Diagnostics.Debug.WriteLine("\n\n\n" + apiurl + "\n\n\n");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = client.GetAsync(apiurl).Result;
+            HttpContent content = response.Content;
+            ViewBag.companyReviews = content.ReadAsStringAsync().Result;
+            //string test = ViewBag.companyReviews;
+            //System.Diagnostics.Debug.WriteLine("\n\n\n" + test + "\n\n\n");
 
             return View("DisplayCompany");
         }
