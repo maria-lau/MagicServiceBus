@@ -24,7 +24,7 @@
 <div style="height:100px">
     <h4>Write a review for @ViewBag.CompanyName</h4>
     <form method="post" action="/CompanyListings/SaveReview">
-        <input type="text" name="reviewData" />
+        <input type="text" name="reviewData" required/>
         <br />
         <input type="hidden" name="companyName" value=@ViewBag.CompanyName />
         <br />
