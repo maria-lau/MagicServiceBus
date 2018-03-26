@@ -1,46 +1,112 @@
-﻿<link href="~/Content/ChatStyles.css" rel="stylesheet" type="text/css" />
+﻿@{
+    var companyID = ViewData["companyID"];
+}
+
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400i,900" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="~/Scripts/CompanyListings/CompanyListingsFunctions.js"></script>
+<div class="w3-cell-row" style="width:100%">
+    <div class="w3-container">
+        <h1 id="CompanyNameDisplay">@ViewBag.CompanyName</h1><br />
 
-<h2 id="CompanyNameDisplay">@ViewBag.CompanyName</h2>
+        <p>
+            Email: @ViewBag.CompanyInfo.email
+            <br />
+            Phone Number: @ViewBag.CompanyInfo.phoneNumber
+            <br />
+            @ViewBag.CompanyName can be found at the following location(s):
+        </p><br />
+        @foreach (string location in ViewBag.CompanyInfo.locations)
+        {
+            <p1 style="padding-left:4px; text-align:center;">@location</p1>
+            <br />
+        }
 
-<br />
-<p>Email: @ViewBag.CompanyInfo.email</p>
-<br />
-<p>Phone Number: @ViewBag.CompanyInfo.phoneNumber</p>
-<br />
-<p>@ViewBag.CompanyName can be found at these locations:</p>
-<br />
-@foreach (string location in ViewBag.CompanyInfo.locations)
-{
-    <p style="padding-left:4em;">@location</p>
-    <br />
-}
+        <p>Write a review for @ViewBag.CompanyName</p>
+        @using (Html.BeginForm("SaveReview", "CompanyDisplay", FormMethod.Post,
+             new { id = "reviewForm" }))
+        {
+             <div class="container" style="text-align:left;">
+                 @Html.TextBox("reviewData", null, new { @placeholder = "Enter Review" })
+              </div>
+             <div style="text-align:center;">
+                 <input type="submit" value="Submit" style="float: none; background-color: #785ff4;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px" />
+             </div><br />
+        }
 
-<div style="height:100px">
-    <h4>Write a review for @ViewBag.CompanyName</h4>
-    @using (Html.BeginForm("SaveReview", "CompanyDisplay", FormMethod.Post,
-        new { id = "reviewForm" }))
-    {
-        <div class="container" style="test-align:left;">
-            @Html.TextBox("reviewData", null, new { @placeholder = "review" })
+        <div style="height:100px">
+            <p>Start a conversation with @ViewBag.CompanyName</p>
+            <div style="width:400px; float:left">
+                <textarea class="messagetextarea" id="textUserMessage" placeholder="Enter your message here." rows="3"></textarea>
+            </div>
+            <div style="text-align:center;">
+                <button class="sendbutton" id="SendMessageButton" style="float: none; background-color: #1185f9;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px">Send</button>
+            </div>
         </div>
-        <div style="text-align:center;">
-            <input type="submit" value="Save" style="float:left;" />
+        <br />
+    <div class="w3-container" style="height:300px;">
+        <p>Where reviews will go.</p>
         </div>
-    }
-</div>
-<br /><br />
+    </div>
+    </div>
+    <style>
+        .container {
+            padding: 16px;
+        }
 
-<div style="height:100px">
-    <h4>Start a conversation with @ViewBag.CompanyName</h4>
-    <div style="width:400px; float:left">
-        <textarea class="messagetextarea" id="textUserMessage" placeholder="Enter your message here." rows="3"></textarea>
-    </div>
-    <div style="float:left">
-        <button class="sendbutton" id="SendMessageButton">Send</button>
-    </div>
-</div>
-<br /><br />
+        form {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0 auto;
+        }
+
+        input, textarea {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            width: 700px;
+            height: 40px;
+        }
+
+            /* Full-width inputs */
+            input[type=text], input[type=password] {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
+
+        h1 {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+        }
+
+        p {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        p1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+        }
+
+        p2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        p3 {
+            position: absolute;
+            bottom: 100px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+        }
+    </style>

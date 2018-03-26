@@ -13,14 +13,12 @@
     </h1>
     @using (Html.BeginForm("Search", "CompanyListings"))
     {
-        <p>@ViewBag.Message</p>
-        <br />
         <div class="container" style="text-align:center;">
             @Html.TextBox("textCompanyName", null, new { @placeholder = "Enter a Company Name" })
         </div>
         <div style="text-align:center;">
             <input type="submit" value="Search" style="float: none; background-color: #785ff4;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px" />
-        </div> <br /><br /><br />
+        </div> <br />
 
 
     }
@@ -28,16 +26,17 @@
     {
         if (ViewBag.Companylist.companyNames.Length == 0)
         {
-            <p>Your search did not retrun any results. Please try again.</p>
+            <p>Your search did not return any results. Please try again.</p>
         }
         else
         {
-            <p style="font-size:larger">Results:</p> <br />
-            foreach (string item in ViewBag.Companylist.companyNames)
-            {
-                @Html.ActionLink(item, "DisplayCompany/" + item, "CompanyListings")
-                <br />
-            }
+            <p2 style="padding-left:8px;">Results:</p2>
+            <div style="text-align:center;color: mediumblue; text-decoration:underline; text-decoration-color:mediumblue;"><p1>
+                @foreach (string item in ViewBag.Companylist.companyNames)
+                {
+                 @Html.ActionLink(item, "DisplayCompany/" + item, "CompanyListings")
+                }
+            </p1></div>
         }
     }
 </div>
@@ -60,9 +59,15 @@
         height: 40px;
     }
 
-        input:focus, textarea:focus {
-            border-color: aquamarine;
-        }
+    /* Full-width inputs */
+    input[type=text], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
 
     h1 {
         text-align: center;
@@ -76,10 +81,16 @@
         font-size: 14px;
     }
 
+    p1 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+    }
+
     p2 {
         font-family: 'Montserrat', sans-serif;
-        font-weight: 600;
-        font-size: 14px;
+        font-weight: 500;
+        font-size: 18px;
     }
 
     p3 {

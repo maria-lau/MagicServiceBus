@@ -83,6 +83,7 @@ namespace ClientApplicationMVC.Controllers
             }
 
             ViewBag.CompanyName = id;
+            ViewData["companyID"] = id;
 
             GetCompanyInfoRequest infoRequest = new GetCompanyInfoRequest(new CompanyInstance(id));
             GetCompanyInfoResponse infoResponse = connection.getCompanyInfo(infoRequest);
