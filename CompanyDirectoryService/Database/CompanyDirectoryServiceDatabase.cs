@@ -42,7 +42,7 @@ namespace CompanyDirectoryService.Database
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataReader reader = command.ExecuteReader();
                 CompanyInstance value = new CompanyInstance(info.companyName);
-                //String[] cLocations = new String[1];
+                value.locations = new String[1];
 
                 while (reader.Read())
                 {
