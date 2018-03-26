@@ -5,6 +5,7 @@ using Messages.ServiceBusRequest.CompanyDirectory.Responses;
 using Messages.ServiceBusRequest.CompanyDirectory.Requests;
 
 using System;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Net.Http;
@@ -43,7 +44,7 @@ namespace ClientApplicationMVC.Controllers
             }
 
             ServiceBusConnection connection = ConnectionManager.getConnectionObject(Globals.getUser());
-            if(connection == null)
+            if (connection == null)
             {
                 return RedirectToAction("Index", "Authentication");
             }
@@ -84,7 +85,6 @@ namespace ClientApplicationMVC.Controllers
             }
 
             ViewBag.CompanyName = id;
-            ViewData["companyID"] = id;
 
             GetCompanyInfoRequest infoRequest = new GetCompanyInfoRequest(new CompanyInstance(id));
             GetCompanyInfoResponse infoResponse = connection.getCompanyInfo(infoRequest);
@@ -92,7 +92,7 @@ namespace ClientApplicationMVC.Controllers
 
             // Call API to retrieve company reviews
             string company = ViewBag.CompanyName;
-            string apiurl = "http://104.197.187.198/api/review/getreview/{companyName:\"" + company + "\"}";
+            string apiurl = "http://35.188.169.187/api/review/getreview/{companyName:\"" + company + "\"}";
             //System.Diagnostics.Debug.WriteLine("\n\n\n" + apiurl + "\n\n\n");
             HttpClient client = new HttpClient();
             HttpResponseMessage response = client.GetAsync(apiurl).Result;
@@ -104,12 +104,26 @@ namespace ClientApplicationMVC.Controllers
             return View("DisplayCompany");
         }
 
-        [HttpPost]
-        public ActionResult SaveReview(String reviewData)
+        public ActionResult SaveReview()
         {
             String review = Request.Form["reviewData"];
-            System.Diagnostics.Debug.WriteLine("--------------------------------------" + review + "-------------------------------------");
-            return null;
+            String company = Request.Form["companyName"];
+            TimeSpan time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            String rating = Request.Form["rating"];
+
+            var httpPostRequest = new HttpClient();
+            string uri = "http://104.197.187.198/api/Review/PostReview";
+            string json = "{review:{companyName:\"" + company + "\"," + "username:\"" + Globals.getUser() + "\","
+                              + "review:\"" + review + "\"," + "stars:" + rating + "," + "timestamp:" + time.TotalSeconds + "}}";
+            System.Diagnostics.Debug.WriteLine("\n\n\n" + json + "\n\n\n");
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = httpPostRequest.PostAsync(uri, stringContent);
+
+            string message = "Successfully saved review for company: " + company;
+
+            Response.Write("<script>alert('" + message + "')</script>");
+
+            return View("Index");
         }
     }
 }
