@@ -28,14 +28,13 @@
         @using (Html.BeginForm("SaveReview", "CompanyDisplay", FormMethod.Post,
          new { id = "reviewForm" }))
         {
-
-            @Html.TextBox("reviewData", null, new { @placeholder = "Enter Review" })
+            @Html.TextArea("reviewData", null, new { @placeholder = "Enter Review" },)
             <input type="submit" value="Submit" style="float: none; background-color: #785ff4;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px" />
             <br />
         }
 
         <p>Start a conversation with @ViewBag.CompanyName</p>
-        <textarea class="messagetextarea" id="textUserMessage" placeholder="Enter your message here." rows="3"></textarea>
+        <textarea class="messagetextarea" id="textUserMessage" placeholder="Enter your message here." rows="5" cols="40"></textarea>
         <button class="sendbutton" id="SendMessageButton" style=" font-family: 'Montserrat', sans-serif; font-weight:600;font-size:14px;float: none; background-color: #1185f9;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px">Send</button>
         <br />
 
