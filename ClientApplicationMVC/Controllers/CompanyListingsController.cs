@@ -92,7 +92,7 @@ namespace ClientApplicationMVC.Controllers
 
             // Call API to retrieve company reviews
             string company = ViewBag.CompanyName;
-            string apiurl = "http://35.188.169.187/api/review/getreview/{companyName:\"" + company + "\"}";
+            string apiurl = "http://104.197.187.198/api/review/getreview/{companyName:\"" + company + "\"}";
             //System.Diagnostics.Debug.WriteLine("\n\n\n" + apiurl + "\n\n\n");
             HttpClient client = new HttpClient();
             HttpResponseMessage response = client.GetAsync(apiurl).Result;
