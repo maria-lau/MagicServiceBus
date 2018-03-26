@@ -5,6 +5,7 @@ using Messages.ServiceBusRequest.CompanyDirectory.Responses;
 using Messages.ServiceBusRequest.CompanyDirectory.Requests;
 
 using System;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Net.Http;
@@ -43,7 +44,7 @@ namespace ClientApplicationMVC.Controllers
             }
 
             ServiceBusConnection connection = ConnectionManager.getConnectionObject(Globals.getUser());
-            if(connection == null)
+            if (connection == null)
             {
                 return RedirectToAction("Index", "Authentication");
             }
@@ -101,6 +102,28 @@ namespace ClientApplicationMVC.Controllers
             //System.Diagnostics.Debug.WriteLine("\n\n\n" + test + "\n\n\n");
 
             return View("DisplayCompany");
+        }
+
+        public ActionResult SaveReview()
+        {
+            String review = Request.Form["reviewData"];
+            String company = Request.Form["companyName"];
+            TimeSpan time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            String rating = Request.Form["rating"];
+
+            var httpPostRequest = new HttpClient();
+            string uri = "http://104.197.187.198/api/Review/PostReview";
+            string json = "{review:{companyName:\"" + company + "\"," + "username:\"" + Globals.getUser() + "\","
+                              + "review:\"" + review + "\"," + "stars:" + rating + "," + "timestamp:" + time.TotalSeconds + "}}";
+            System.Diagnostics.Debug.WriteLine("\n\n\n" + json + "\n\n\n");
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = httpPostRequest.PostAsync(uri, stringContent);
+
+            string message = "Successfully saved review for company: " + company;
+
+            Response.Write("<script>alert('" + message + "')</script>");
+
+            return View("Index");
         }
     }
 }
