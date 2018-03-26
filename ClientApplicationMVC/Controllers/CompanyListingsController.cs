@@ -95,7 +95,10 @@ namespace ClientApplicationMVC.Controllers
         public ActionResult SaveReview(String reviewData)
         {
             String review = Request.Form["reviewData"];
+            String company = ViewBag.CompanyName;
+            System.Diagnostics.Debug.WriteLine("--------------------------------------" + Globals.getUser() + "-------------------------------------");
             System.Diagnostics.Debug.WriteLine("--------------------------------------" + review + "-------------------------------------");
+            System.Diagnostics.Debug.WriteLine("--------------------------------------" + company + "-------------------------------------");
             return null;
         }
     }
