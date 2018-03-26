@@ -5,6 +5,8 @@ using Messages.ServiceBusRequest.CompanyDirectory.Responses;
 using Messages.ServiceBusRequest.CompanyDirectory.Requests;
 
 using System;
+using System.Text;
+using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -92,19 +94,26 @@ namespace ClientApplicationMVC.Controllers
             return View("DisplayCompany");
         }
 
-        [HttpPost]
-        public ActionResult SaveReview(String reviewData)
+        public ActionResult SaveReview()
         {
             String review = Request.Form["reviewData"];
             String company = Request.Form["companyName"];
-            String date = DateTime.Now.ToString();
+            TimeSpan time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             String rating = Request.Form["rating"];
-            System.Diagnostics.Debug.WriteLine("--------------------------------------" + Globals.getUser() + "-------------------------------------");
-            System.Diagnostics.Debug.WriteLine("--------------------------------------" + review + "-------------------------------------");
-            System.Diagnostics.Debug.WriteLine("--------------------------------------" + company + "-------------------------------------");
-            System.Diagnostics.Debug.WriteLine("--------------------------------------" + date + "-------------------------------------");
-            System.Diagnostics.Debug.WriteLine("--------------------------------------" + rating + "-------------------------------------");
-            return null;
+
+            var httpPostRequest = new HttpClient();
+            string uri = "http://104.197.187.198/api/Review/PostReview";
+            string json = "{review:{companyName:\"" + company + "\"," + "username:\"" + Globals.getUser() + "\","
+                              + "review:\"" + review + "\"," + "stars:" + rating + "," + "timestamp:" + time.TotalSeconds + "}}";
+            System.Diagnostics.Debug.WriteLine("\n\n\n" + json + "\n\n\n");
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = httpPostRequest.PostAsync(uri, stringContent);
+
+            string message = "Successfully saved review for company: " + company;
+
+            Response.Write("<script>alert('" + message + "')</script>");
+
+            return View("Index");
         }
     }
 }
