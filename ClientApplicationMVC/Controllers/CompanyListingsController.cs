@@ -83,6 +83,7 @@ namespace ClientApplicationMVC.Controllers
             }
 
             ViewBag.CompanyName = id;
+            ViewData["companyID"] = id;
 
             GetCompanyInfoRequest infoRequest = new GetCompanyInfoRequest(new CompanyInstance(id));
             GetCompanyInfoResponse infoResponse = connection.getCompanyInfo(infoRequest);
@@ -95,10 +96,14 @@ namespace ClientApplicationMVC.Controllers
         public ActionResult SaveReview(String reviewData)
         {
             String review = Request.Form["reviewData"];
-            String company = ViewBag.CompanyName;
+            String company = Request.Form["companyName"];
+            String date = DateTime.Now.ToString();
+            String rating = Request.Form["rating"];
             System.Diagnostics.Debug.WriteLine("--------------------------------------" + Globals.getUser() + "-------------------------------------");
             System.Diagnostics.Debug.WriteLine("--------------------------------------" + review + "-------------------------------------");
             System.Diagnostics.Debug.WriteLine("--------------------------------------" + company + "-------------------------------------");
+            System.Diagnostics.Debug.WriteLine("--------------------------------------" + date + "-------------------------------------");
+            System.Diagnostics.Debug.WriteLine("--------------------------------------" + rating + "-------------------------------------");
             return null;
         }
     }

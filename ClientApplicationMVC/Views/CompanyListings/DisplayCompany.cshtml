@@ -2,6 +2,10 @@
 <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="~/Scripts/CompanyListings/CompanyListingsFunctions.js"></script>
 
+@{ 
+    var companyID = ViewData["companyID"];
+}
+
 <h2 id="CompanyNameDisplay">@ViewBag.CompanyName</h2>
 
 <br />
@@ -20,9 +24,18 @@
 <div style="height:100px">
     <h4>Write a review for @ViewBag.CompanyName</h4>
     <form method="post" action="/CompanyListings/SaveReview">
-        <input type="text" name="reviewData" required="true"/>
-        <br/>
+        <input type="text" name="reviewData" />
+        <br />
+        <input type="hidden" name="companyName" value=@ViewBag.CompanyName />
+        <br />
+        <h4>Stars:</h4>
+        <input type="radio" name="rating" value="1" />
+        <input type="radio" name="rating" value="2" />
+        <input type="radio" name="rating" value="3" />
+        <input type="radio" name="rating" value="4" />
+        <input type="radio" name="rating" value="5" />
         <input type="submit" name="submit" value="Save" />
+        <br /> <br />
     </form>
 </div>
 <br /><br />
