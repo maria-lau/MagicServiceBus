@@ -90,5 +90,13 @@ namespace ClientApplicationMVC.Controllers
 
             return View("DisplayCompany");
         }
+
+        [HttpPost]
+        public ActionResult SaveReview(String reviewData)
+        {
+            String review = Request.Form["reviewData"];
+            System.Diagnostics.Debug.WriteLine("--------------------------------------" + review + "-------------------------------------");
+            return null;
+        }
     }
 }

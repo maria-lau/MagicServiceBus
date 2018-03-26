@@ -18,6 +18,21 @@
 }
 
 <div style="height:100px">
+    <h4>Write a review for @ViewBag.CompanyName</h4>
+    @using (Html.BeginForm("SaveReview", "CompanyDisplay", FormMethod.Post,
+        new { id = "reviewForm"}))
+    {
+        <div class="container" style="test-align:left;">
+            @Html.TextBox("reviewData", null, new { @placeholder = "review"})
+        </div>
+        <div style="text-align:center;">
+            <input type="submit" value="Save" style="float:left;"/>
+        </div>
+    }
+</div>
+<br /><br />
+
+<div style="height:100px">
     <h4>Start a conversation with @ViewBag.CompanyName</h4>
     <div style="width:400px; float:left">
         <textarea class="messagetextarea" id="textUserMessage" placeholder="Enter your message here." rows="3"></textarea>

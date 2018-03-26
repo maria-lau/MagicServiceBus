@@ -64,6 +64,7 @@
     <Compile Include="Database\CompanyDirectoryServiceDatabase.cs" />
     <Compile Include="Handlers\CompanySearchHandler.cs" />
     <Compile Include="Handlers\CreateAccountHandler.cs" />
+    <Compile Include="Handlers\GetCompanyInfoHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
