@@ -141,7 +141,7 @@ namespace AuthenticationService.Database
         /// Both of these properties are required in order for both the base class and the
         /// table definitions below to have access to the variable.
         /// </summary>
-        private const String dbname = "authenticationservicedb";
+        private const String dbname = "callitlocaldb";
         public override String databaseName { get; } = dbname;
 
         /// <summary>
