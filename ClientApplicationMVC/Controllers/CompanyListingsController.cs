@@ -9,6 +9,7 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Net.Http;
+using System.Web.Script.Serialization;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -97,7 +98,16 @@ namespace ClientApplicationMVC.Controllers
             HttpClient client = new HttpClient();
             HttpResponseMessage response = client.GetAsync(apiurl).Result;
             HttpContent content = response.Content;
-            ViewBag.companyReviews = content.ReadAsStringAsync().Result;
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            ReviewInfo[] reviews = js.Deserialize<ReviewInfo[]>(content.ReadAsStringAsync().Result);
+            String stringReviews = "";
+            for(int i = 0; i < reviews.Length; i++)
+            {
+                stringReviews = stringReviews + reviews[i].username + "\nWrote a review for" + reviews[i].companyName 
+                                + "\nRating: " + reviews[i].stars + "\n" + reviews[i].review + "\nTime: " + reviews[i].timestamp + "\n\n\n";
+            }
+
+            ViewBag.companyReviews = stringReviews; 
 
             //string test = ViewBag.companyReviews;
             //System.Diagnostics.Debug.WriteLine("\n\n\n" + test + "\n\n\n");
@@ -108,7 +118,7 @@ namespace ClientApplicationMVC.Controllers
         public ActionResult SaveReview()
         {
             String review = Request.Form["reviewData"].ToString();
-            String company = Request.Form["companyName"].ToString();
+            String company = Request.Form["companyName"];
             TimeSpan time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             String rating = Request.Form["starRating"].ToString();
 

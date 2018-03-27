@@ -26,6 +26,7 @@
 
     <br /><br />
     <p>Write a review for @ViewBag.CompanyName:</p>
+    <input type="hidden" name="companyName" value=@ViewBag.CompanyName />
     <form method="post" onsubmit="return checkValidReview()" action="/CompanyListings/SaveReview">
         <textarea cols="20" id="reviewData" name="reviewData" placeholder="Write review here..." style="height:120px; width:350px;"></textarea>
         <div class="stars">
@@ -44,10 +45,10 @@
         <br />
     </form>
 
-        <br /><br /><p>Start a conversation with @ViewBag.CompanyName:</p>
-        @Html.TextArea("messageTextArea", htmlAttributes: new { @style = "height: 120px; width: 350px;", @placeholder = "Enter Your Message Here..." })
-        <button class="sendbutton" id="SendMessageButton" style=" font-family: 'Montserrat', sans-serif; font-weight:600;font-size:14px;float: none; background-color: #1185f9;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px">Send</button>
-        <br />
+    <br /><br /><p>Start a conversation with @ViewBag.CompanyName:</p>
+    @Html.TextArea("messageTextArea", htmlAttributes: new { @style = "height: 120px; width: 350px;", @placeholder = "Enter Your Message Here..." })
+    <button class="sendbutton" id="SendMessageButton" style=" font-family: 'Montserrat', sans-serif; font-weight:600;font-size:14px;float: none; background-color: #1185f9;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px">Send</button>
+    <br />
 
 </div>
 <div id="right">
