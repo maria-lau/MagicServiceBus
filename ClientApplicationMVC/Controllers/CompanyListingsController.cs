@@ -104,7 +104,8 @@ namespace ClientApplicationMVC.Controllers
             for(int i = 0; i < reviews.Length; i++)
             {
                 stringReviews = stringReviews + reviews[i].username + "<br />Wrote a review for <a style=color:#1185f9>" + reviews[i].companyName 
-                                + "</a><br />Rating: " + reviews[i].stars + "<br />" + reviews[i].review + "<br />Time: " + reviews[i].timestamp + "<br /><br /><br />";
+                                + "</a><br /><a style=color:gold>&#9733</a>Rating: " + reviews[i].stars + "<br />" + reviews[i].review 
+                                + "<br />Time: " + reviews[i].timestamp + "<br /><br /><br />";
             }
 
             ViewBag.companyReviews = stringReviews; 
@@ -127,7 +128,7 @@ namespace ClientApplicationMVC.Controllers
             }
 
             var httpPostRequest = new HttpClient();
-            string uri = "http://104.197.187.198/api/Review/PostReview";
+            string uri = "http://35.188.169.187/api/Review/PostReview";
             string json = "{review:{companyName:\"" + company + "\"," + "username:\"" + Globals.getUser() + "\","
                               + "review:\"" + review + "\"," + "stars:" + rating + "," + "timestamp:" + time.TotalSeconds + "}}";
             System.Diagnostics.Debug.WriteLine("\n\n\n" + json + "\n\n\n");
