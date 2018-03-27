@@ -98,6 +98,7 @@ namespace ClientApplicationMVC.Controllers
             HttpResponseMessage response = client.GetAsync(apiurl).Result;
             HttpContent content = response.Content;
             ViewBag.companyReviews = content.ReadAsStringAsync().Result;
+
             //string test = ViewBag.companyReviews;
             //System.Diagnostics.Debug.WriteLine("\n\n\n" + test + "\n\n\n");
 
@@ -106,10 +107,10 @@ namespace ClientApplicationMVC.Controllers
 
         public ActionResult SaveReview()
         {
-            String review = Request.Form["reviewData"];
-            String company = Request.Form["companyName"];
+            String review = Request.Form["reviewData"].ToString();
+            String company = Request.Form["companyName"].ToString();
             TimeSpan time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            String rating = Request.Form["rating"];
+            String rating = Request.Form["starRating"].ToString();
 
             var httpPostRequest = new HttpClient();
             string uri = "http://104.197.187.198/api/Review/PostReview";
@@ -119,7 +120,7 @@ namespace ClientApplicationMVC.Controllers
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
             var response = httpPostRequest.PostAsync(uri, stringContent);
 
-            string message = "Successfully saved review for company: " + company;
+            string message = "Successfully saved review for company: " + company + "rating was: " + rating;
 
             Response.Write("<script>alert('" + message + "')</script>");
 
