@@ -121,17 +121,17 @@ namespace ClientApplicationMVC.Controllers
             String review = Request.Form["reviewData"];
             String company = Request.Form["companyName"];
             TimeSpan time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            String rating = "";
-            if (Request.Form["star"] != null)
-            {
-                rating = Request.Form["star"].ToString();
-            }
+            String rating = Request.Form["star"];//"";
+            //if (Request.Form["star"] != null)
+            //{
+            //    rating = Request.Form["star"].ToString();
+            //}
 
             HttpClient httpPostRequest = new HttpClient();
             string uri = "http://35.188.169.187/api/Review/PostReview";
             string json = "{review:{companyName:\"" + company + "\"," + "username:\"" + Globals.getUser() + "\","
                               + "review:\"" + review + "\"," + "stars:" + rating + "," + "timestamp:" + time.TotalSeconds + "}}";
-            System.Diagnostics.Debug.WriteLine("\n\n\n" + json + "\n\n\n");
+            //System.Diagnostics.Debug.WriteLine("\n\n\n" + json + "\n\n\n");
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
             var response = httpPostRequest.PostAsync(uri, stringContent);
 
