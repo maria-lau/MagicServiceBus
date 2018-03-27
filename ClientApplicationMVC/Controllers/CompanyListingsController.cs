@@ -116,7 +116,7 @@ namespace ClientApplicationMVC.Controllers
             return View("DisplayCompany");
         }
 
-        public ActionResult SaveReview(string starRating)
+        public ActionResult SaveReview()
         {
             String review = Request.Form["reviewData"];
             String company = Request.Form["companyName"];
@@ -127,7 +127,7 @@ namespace ClientApplicationMVC.Controllers
                 rating = Request.Form["star"].ToString();
             }
 
-            var httpPostRequest = new HttpClient();
+            HttpClient httpPostRequest = new HttpClient();
             string uri = "http://35.188.169.187/api/Review/PostReview";
             string json = "{review:{companyName:\"" + company + "\"," + "username:\"" + Globals.getUser() + "\","
                               + "review:\"" + review + "\"," + "stars:" + rating + "," + "timestamp:" + time.TotalSeconds + "}}";
@@ -135,9 +135,17 @@ namespace ClientApplicationMVC.Controllers
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
             var response = httpPostRequest.PostAsync(uri, stringContent);
 
-            //string message = "Successfully saved review for company: " + company;
-            string message = json;
-            Response.Write("<script>alert('" + message + "')</script>");
+            string message = "Successfully saved review for company: " + company;
+
+            if (response.Result.IsSuccessStatusCode)
+            {
+                Response.Write("<script>alert('" + message + "')</script>");
+            }
+            else
+            {
+                message = "Failed to save review for company: " + company;
+                Response.Write("<script>alert('" + message + "')</script>");
+            }
 
             return View("Index");
         }
