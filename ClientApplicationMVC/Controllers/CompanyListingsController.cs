@@ -5,9 +5,11 @@ using Messages.ServiceBusRequest.CompanyDirectory.Responses;
 using Messages.ServiceBusRequest.CompanyDirectory.Requests;
 
 using System;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Net.Http;
+using System.Web.Script.Serialization;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -43,7 +45,7 @@ namespace ClientApplicationMVC.Controllers
             }
 
             ServiceBusConnection connection = ConnectionManager.getConnectionObject(Globals.getUser());
-            if(connection == null)
+            if (connection == null)
             {
                 return RedirectToAction("Index", "Authentication");
             }
@@ -96,11 +98,56 @@ namespace ClientApplicationMVC.Controllers
             HttpClient client = new HttpClient();
             HttpResponseMessage response = client.GetAsync(apiurl).Result;
             HttpContent content = response.Content;
-            ViewBag.companyReviews = content.ReadAsStringAsync().Result;
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            ReviewInfo[] reviews = js.Deserialize<ReviewInfo[]>(content.ReadAsStringAsync().Result);
+            String stringReviews = "";
+            for(int i = 0; i < reviews.Length; i++)
+            {
+                stringReviews = stringReviews + reviews[i].username + "<br />Wrote a review for <a style=color:#1185f9>" + reviews[i].companyName 
+                                + "</a><br /><a style=color:gold>&#9733</a>Rating: " + reviews[i].stars + "<br />" + reviews[i].review 
+                                + "<br />Time: " + reviews[i].timestamp + "<br /><br /><br />";
+            }
+
+            ViewBag.companyReviews = stringReviews; 
+
             //string test = ViewBag.companyReviews;
             //System.Diagnostics.Debug.WriteLine("\n\n\n" + test + "\n\n\n");
 
             return View("DisplayCompany");
+        }
+
+        public ActionResult SaveReview()
+        {
+            String review = Request.Form["reviewData"];
+            String company = Request.Form["companyName"];
+            TimeSpan time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            String rating = Request.Form["star"];//"";
+            //if (Request.Form["star"] != null)
+            //{
+            //    rating = Request.Form["star"].ToString();
+            //}
+
+            HttpClient httpPostRequest = new HttpClient();
+            string uri = "http://35.188.169.187/api/Review/PostReview";
+            string json = "{review:{companyName:\"" + company + "\"," + "username:\"" + Globals.getUser() + "\","
+                              + "review:\"" + review + "\"," + "stars:" + rating + "," + "timestamp:" + time.TotalSeconds + "}}";
+            //System.Diagnostics.Debug.WriteLine("\n\n\n" + json + "\n\n\n");
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = httpPostRequest.PostAsync(uri, stringContent);
+
+            string message = "Successfully saved review for company: " + company;
+
+            if (response.Result.IsSuccessStatusCode)
+            {
+                Response.Write("<script>alert('" + message + "')</script>");
+            }
+            else
+            {
+                message = "Failed to save review for company: " + company;
+                Response.Write("<script>alert('" + message + "')</script>");
+            }
+
+            return View("Index");
         }
     }
 }

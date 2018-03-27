@@ -1,8 +1,10 @@
-﻿@{ 
+﻿@{
     ViewBag.Title = "Echo Service";
 }
 
 <script type="text/javascript" src="~/Scripts/Echo/EchoFunctions.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400i,900" rel="stylesheet">
+
 
 <h2>@ViewBag.Title</h2>
 
@@ -19,7 +21,7 @@ and we set an onsubmit attribute that will call a javascript function when the u
 The form will only be submitted and sent to the controller on the server if the javascript function we call returns a value of true
 -->
 @using (Html.BeginForm("AsIsEcho", "Echo", FormMethod.Get,
-    new { id = "asIsEchoForm", onsubmit = "return validateAsIsEchoForm()"}))
+    new { id = "asIsEchoForm", onsubmit = "return validateAsIsEchoForm()" }))
 {
     <h3>As Is Echo</h3>
     @Html.TextBox("asIsText")
@@ -30,7 +32,7 @@ The form will only be submitted and sent to the controller on the server if the 
 }
 
 @using (Html.BeginForm("ReverseEcho", "Echo", FormMethod.Get,
-    new { id = "reverseEchoForm", onsubmit = "return validateReverseEchoForm()"}))
+    new { id = "reverseEchoForm", onsubmit = "return validateReverseEchoForm()" }))
 {
     <h3>Reverse Echo</h3>
     @Html.TextBox("reverseText")

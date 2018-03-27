@@ -104,6 +104,19 @@ namespace ClientApplicationMVC.Models
             return connection;
         }
 
+        public static string removeConnection(string user)
+        {
+            ServiceBusConnection connection;
+            if (connections.TryGetValue(user, out connection) == true)
+            {
+                Globals.setUser("Log In");
+                connection.close();
+                connections.Remove(user);
+                return "Log Out Successful!";
+            }
+            return "Not logged in. No need to log out.";
+        }
+
         /// <summary>
         /// Adds the given connection to the list of connection with the given string as a key
         /// </summary>

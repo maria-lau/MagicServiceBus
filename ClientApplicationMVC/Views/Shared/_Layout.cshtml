@@ -30,9 +30,18 @@
                         <li>@Html.ActionLink("Chat Box", "Index", "Chat")</li>
                     }
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                @if (ClientApplicationMVC.Models.Globals.isLoggedIn() == true)
+                    {
+                        <li>@Html.ActionLink("Logout", "LogOut", "Authentication")</li>                
+                    }
+                </ul>
             </div>
         </div>
     </div>
+    <!--<form method="post" action="/Authentication/LogOut">
+        <input type="submit" value="Logout" style="position: absolute; right: 30px; top: 100px; background-color:dimgrey;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px" />
+    </form>-->
     <div class="container body-content">
         @RenderBody()
         <footer>
