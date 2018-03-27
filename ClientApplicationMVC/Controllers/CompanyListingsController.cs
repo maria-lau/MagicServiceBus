@@ -103,8 +103,8 @@ namespace ClientApplicationMVC.Controllers
             String stringReviews = "";
             for(int i = 0; i < reviews.Length; i++)
             {
-                stringReviews = stringReviews + reviews[i].username + "\nWrote a review for" + reviews[i].companyName 
-                                + "\nRating: " + reviews[i].stars + "\n" + reviews[i].review + "\nTime: " + reviews[i].timestamp + "\n\n\n";
+                stringReviews = stringReviews + reviews[i].username + "<br />Wrote a review for <a style=color:#1185f9>" + reviews[i].companyName 
+                                + "</a><br />Rating: " + reviews[i].stars + "<br />" + reviews[i].review + "<br />Time: " + reviews[i].timestamp + "<br /><br /><br />";
             }
 
             ViewBag.companyReviews = stringReviews; 
