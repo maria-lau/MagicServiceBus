@@ -43,6 +43,13 @@ namespace ClientApplicationMVC.Controllers
             return View("../Home/Index");
         }
 
+        public ActionResult LogOut()
+        {
+            string response = ConnectionManager.removeConnection(Globals.getUser());
+            Response.Write("<script>alert('" + response + "')</script>");
+            return View("Index");
+        }
+
         [HttpPost]
         public ActionResult CreateAccountPost(string usernameData, string passwordData, 
             string addressData, string emailData, string phoneData)
