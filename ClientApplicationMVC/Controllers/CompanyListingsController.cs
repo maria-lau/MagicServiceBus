@@ -117,10 +117,10 @@ namespace ClientApplicationMVC.Controllers
 
         public ActionResult SaveReview()
         {
-            String review = Request.Form["reviewData"].ToString();
+            String review = Request.Form["reviewData"];
             String company = Request.Form["companyName"];
             TimeSpan time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            String rating = Request.Form["starRating"].ToString();
+            String rating = Request.Form["starRating"];
 
             var httpPostRequest = new HttpClient();
             string uri = "http://104.197.187.198/api/Review/PostReview";
@@ -130,7 +130,7 @@ namespace ClientApplicationMVC.Controllers
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
             var response = httpPostRequest.PostAsync(uri, stringContent);
 
-            string message = "Successfully saved review for company: " + company + "rating was: " + rating;
+            string message = "Successfully saved review for company: " + company;
 
             Response.Write("<script>alert('" + message + "')</script>");
 

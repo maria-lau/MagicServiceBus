@@ -27,6 +27,7 @@
     <br /><br />
     <p>Write a review for @ViewBag.CompanyName:</p>
     <input type="hidden" name="companyName" value=@ViewBag.CompanyName />
+    <input type="hidden" name="starRating" value=@starRating />
     <form method="post" onsubmit="return checkValidReview()" action="/CompanyListings/SaveReview">
         <textarea cols="20" id="reviewData" name="reviewData" placeholder="Write review here..." style="height:120px; width:350px;"></textarea>
         <div class="stars">
