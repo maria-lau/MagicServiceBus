@@ -26,10 +26,10 @@
 
     <br /><br />
     <p>Write a review for @ViewBag.CompanyName:</p>
-    <form method="post" onsubmit="return checkValidReview()" action="/CompanyListings/SaveReview">
+    <form method="post" onsubmit="return checkStars()" action="/CompanyListings/SaveReview">
         <input type="hidden" name="companyName" value=@ViewBag.CompanyName />
         <input type="hidden" name="starRating" value=@starRating />
-        <textarea cols="20" id="reviewData" name="reviewData" placeholder="Write review here..." style="height:120px; width:350px;"></textarea>
+        <textarea cols="20" id="reviewData" name="reviewData" placeholder="Write review here..." style="height:120px; width:350px;" required></textarea>
         <div class="stars">
             <input class="star star-5" id="star-5" type="radio" name="star" value="5"/>
             <label class="star star-5" for="star-5"></label>
@@ -175,40 +175,17 @@
 </style>
 
 <script>
-    function checkValidReview() {
-        var one = checkReview();
-        var two = checkStars();
-        if ((one == true) && (two == true)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    function checkReview() {
-        if (document.getElementById("reviewData").value == "") {
-            alert("Don't forget to leave a review!");
-            document.getElementById("reviewData").style.display = "none";
-            return false;
-        } else {
-            return true;
-        }
-    }
+ 
     function checkStars() {
         if (document.getElementById("star-5").checked) {
-            starRating = "5";
             return true;
         } else if (document.getElementById("star-4").checked) {
-            starRating = "4";
             return true;
         } else if (document.getElementById("star-3").checked) {
-            starRating = "3";
             return true;
         } else if (document.getElementById("star-2").checked) {
-            starRating = "2";
             return true;
         } else if (document.getElementById("star-1").checked) {
-            starRating = "1";
             return true;
         } else {
             alert("Please enter a star rating before proceeding.");
