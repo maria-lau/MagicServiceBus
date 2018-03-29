@@ -78,6 +78,9 @@
     <Compile Include="ServiceBusRequest\CompanyDirectory\Requests\GetCompanyInfoRequest.cs" />
     <Compile Include="ServiceBusRequest\CompanyDirectory\Responses\CompanySearchResponse.cs" />
     <Compile Include="ServiceBusRequest\CompanyDirectory\Responses\GetCompanyInfoResponse.cs" />
+    <Compile Include="ServiceBusRequest\CompanyReview\CompanyReviewServiceRequest.cs" />
+    <Compile Include="ServiceBusRequest\CompanyReview\Requests\GetReviewRequest.cs" />
+    <Compile Include="ServiceBusRequest\CompanyReview\Requests\SaveReviewRequest.cs" />
     <Compile Include="ServiceBusRequest\Echo\EchoServiceRequest.cs" />
     <Compile Include="ServiceBusRequest\Echo\Requests\AsIsEchoRequest.cs" />
     <Compile Include="ServiceBusRequest\Echo\Requests\ReverseEchoRequest.cs" />
@@ -101,5 +104,6 @@
     <Content Include="docs\MySqlParameterCollection.xml" />
     <Content Include="docs\MySqlTransaction.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

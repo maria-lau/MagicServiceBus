@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationService", "Au
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyDirectoryService", "CompanyDirectoryService\CompanyDirectoryService.csproj", "{32EF729D-C84D-4BD4-B8FF-81D5A53F393E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyReviewService", "CompanyReviewService\CompanyReviewService.csproj", "{1DAEC21C-4C2F-4785-AD5E-666DD2F71E1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{32EF729D-C84D-4BD4-B8FF-81D5A53F393E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32EF729D-C84D-4BD4-B8FF-81D5A53F393E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32EF729D-C84D-4BD4-B8FF-81D5A53F393E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DAEC21C-4C2F-4785-AD5E-666DD2F71E1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DAEC21C-4C2F-4785-AD5E-666DD2F71E1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DAEC21C-4C2F-4785-AD5E-666DD2F71E1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DAEC21C-4C2F-4785-AD5E-666DD2F71E1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

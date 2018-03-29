@@ -3,6 +3,7 @@
 using Messages.DataTypes.Database.CompanyDirectory;
 using Messages.ServiceBusRequest.CompanyDirectory.Responses;
 using Messages.ServiceBusRequest.CompanyDirectory.Requests;
+using Messages.ServiceBusRequest.CompanyReview;
 
 using System;
 using System.Text;
@@ -93,6 +94,7 @@ namespace ClientApplicationMVC.Controllers
 
             // Call API to retrieve company reviews
             string company = ViewBag.CompanyName;
+            GetReviewRequest getRequest = new GetReviewRequest(company);
             string apiurl = "http://35.188.167.20/api/review/getreview/{companyName:\"" + company + "\"}";
             //System.Diagnostics.Debug.WriteLine("\n\n\n" + apiurl + "\n\n\n");
             HttpClient client = new HttpClient();
