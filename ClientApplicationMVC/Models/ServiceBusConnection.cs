@@ -15,6 +15,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
+using Messages.ServiceBusRequest.CompanyReview.Responses;
+using Messages.ServiceBusRequest.CompanyReview.Requests;
 
 namespace ClientApplicationMVC.Models
 {
@@ -42,6 +44,20 @@ namespace ClientApplicationMVC.Models
         {
             send(request);
             return (GetCompanyInfoResponse) readUntilEOF();
+        }
+
+        /** Method to get company's reviews **/
+        public GetReviewResponse getCompanyReviews(GetReviewRequest request)
+        {
+            send(request);
+            return (GetReviewResponse)readUntilEOF();
+        }
+
+        /** Method to save company's review **/
+        public ServiceBusResponse saveCompanyReview(SaveReviewRequest request)
+        {
+            send(request);
+            return readUntilEOF();
         }
 
         #endregion CompanyListingsControllerMessages

@@ -81,6 +81,7 @@
     <Compile Include="ServiceBusRequest\CompanyReview\CompanyReviewServiceRequest.cs" />
     <Compile Include="ServiceBusRequest\CompanyReview\Requests\GetReviewRequest.cs" />
     <Compile Include="ServiceBusRequest\CompanyReview\Requests\SaveReviewRequest.cs" />
+    <Compile Include="ServiceBusRequest\CompanyReview\Responses\GetReviewResponse.cs" />
     <Compile Include="ServiceBusRequest\Echo\EchoServiceRequest.cs" />
     <Compile Include="ServiceBusRequest\Echo\Requests\AsIsEchoRequest.cs" />
     <Compile Include="ServiceBusRequest\Echo\Requests\ReverseEchoRequest.cs" />

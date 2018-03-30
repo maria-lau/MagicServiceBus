@@ -1,22 +1,18 @@
 ﻿using Messages;
-using Messages.DataTypes;
 using Messages.ServiceBusRequest;
 using Messages.ServiceBusRequest.Authentication;
 using Messages.ServiceBusRequest.Echo;
 using Messages.ServiceBusRequest.CompanyDirectory;
-
 using NServiceBus;
-
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Net.Security;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Authentication;
-using System.Text;
 using System.Threading;
 using System.Security.Cryptography.X509Certificates;
+using Messages.ServiceBusRequest.CompanyReview;
 
 namespace AuthenticationService.Communication
 {
@@ -87,6 +83,8 @@ namespace AuthenticationService.Communication
                     return echoRequest((EchoServiceRequest)request);
                 case (Service.CompanyDirectory):
                     return companyRequest((CompanyDirectoryServiceRequest)request);
+                case (Service.CompanyReview):
+                    return ReviewRequest((CompanyReviewServiceRequest)request);
                 default:
                     return new ServiceBusResponse(false, "Error: Invalid request. Did not specify a valid service type. Specified type was: " + request.serviceRequested.ToString());
                 
