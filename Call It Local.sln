@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyDirectoryService", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyReviewService", "CompanyReviewService\CompanyReviewService.csproj", "{1DAEC21C-4C2F-4785-AD5E-666DD2F71E1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatService", "ChatService\ChatService.csproj", "{0712CD98-7E3E-49D4-94E2-04BA07E95D1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{1DAEC21C-4C2F-4785-AD5E-666DD2F71E1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DAEC21C-4C2F-4785-AD5E-666DD2F71E1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DAEC21C-4C2F-4785-AD5E-666DD2F71E1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0712CD98-7E3E-49D4-94E2-04BA07E95D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0712CD98-7E3E-49D4-94E2-04BA07E95D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0712CD98-7E3E-49D4-94E2-04BA07E95D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0712CD98-7E3E-49D4-94E2-04BA07E95D1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

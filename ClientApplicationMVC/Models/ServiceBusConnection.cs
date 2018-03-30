@@ -17,6 +17,8 @@ using System.Text;
 using System.Threading;
 using Messages.ServiceBusRequest.CompanyReview.Responses;
 using Messages.ServiceBusRequest.CompanyReview.Requests;
+using Messages.ServiceBusRequest.Chat.Requests;
+using Messages.ServiceBusRequest.Chat.Responses;
 
 namespace ClientApplicationMVC.Models
 {
@@ -46,21 +48,39 @@ namespace ClientApplicationMVC.Models
             return (GetCompanyInfoResponse) readUntilEOF();
         }
 
-        /** Method to get company's reviews **/
+        #endregion CompanyListingsControllerMessages
+
         public GetReviewResponse getCompanyReviews(GetReviewRequest request)
         {
             send(request);
             return (GetReviewResponse)readUntilEOF();
         }
 
-        /** Method to save company's review **/
         public ServiceBusResponse saveCompanyReview(SaveReviewRequest request)
         {
             send(request);
             return readUntilEOF();
         }
 
-        #endregion CompanyListingsControllerMessages
+        public ServiceBusResponse getAllChatContacts(GetChatContactsRequest request)
+        {
+            send(request);
+            return (GetChatContactsResponse)readUntilEOF();
+        }
+
+        public ServiceBusResponse getChatHistory(GetChatHistoryRequest request)
+        {
+            send(request);
+            return (GetChatHistoryResponse)readUntilEOF();
+        }
+
+        public void sendChatMessage(SendMessageRequest request)
+        {
+            send(request);
+        }
+
+
+ 
 
         #region AuthenticationServiceMessages
 

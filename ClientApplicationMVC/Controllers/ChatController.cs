@@ -40,7 +40,7 @@ namespace ClientApplicationMVC.Controllers
             };
 
             GetChatContactsRequest contactsRequest = new GetChatContactsRequest(getContactsCommand);
-            GetChatContactsResponse contactsResponse = connection.getAllChatContacts(contactsRequest);
+            GetChatContactsResponse contactsResponse = (GetChatContactsResponse)connection.getAllChatContacts(contactsRequest);
             
             ChatHistory firstDisplayedChatHistory = null;
 
@@ -56,7 +56,7 @@ namespace ClientApplicationMVC.Controllers
                 };
                 
                 GetChatHistoryRequest historyRequest = new GetChatHistoryRequest(getHistoryCommand);
-                firstDisplayedChatHistory = connection.getChatHistory(historyRequest).responseData.history;
+                firstDisplayedChatHistory = ((GetChatHistoryResponse)connection.getChatHistory(historyRequest)).responseData.history;
             }
             else
             {
@@ -143,7 +143,7 @@ namespace ClientApplicationMVC.Controllers
 
             GetChatHistoryRequest request = new GetChatHistoryRequest(getCommand);
 
-            GetChatHistoryResponse response = connection.getChatHistory(request);
+            GetChatHistoryResponse response = (GetChatHistoryResponse)connection.getChatHistory(request);
 
             string newConvoHtml = "";
 
