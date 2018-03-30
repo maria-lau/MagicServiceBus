@@ -26,7 +26,7 @@ namespace CompanyReviewService.Handlers
 
             try
             {
-                string uri = "http://35.188.167.20/api/Review/PostReview";
+                string uri = "http://35.188.33.235/api/Review/PostReview";
                 var stringContent = new StringContent(message.jsonreview, Encoding.UTF8, "application/json");
                 var response = await httpPostRequest.PostAsync(uri, stringContent);
                 var responseString = await response.Content.ReadAsStringAsync();

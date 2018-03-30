@@ -22,7 +22,7 @@ namespace CompanyReviewService.Handlers
         }
         public async Task HandleAsync(GetReviewRequest message, IMessageHandlerContext context)
         {
-            string apiurl = "http://35.188.167.20/api/review/getreview/{companyName:\"" + message.companyName + "\"}";
+            string apiurl = "http://35.188.33.235/api/review/getreview/{companyName:\"" + message.companyName + "\"}";
 
             HttpResponseMessage response = client.GetAsync(apiurl).Result;
             HttpContent content = response.Content;
