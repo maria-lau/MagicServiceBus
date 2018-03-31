@@ -163,6 +163,7 @@ namespace ChatService.Database
 
             return new ServiceBusResponse(result, message);
         }
+
         public GetChatHistoryResponse retrieveChatHistory(GetChatHistory getRequest)
         {
             bool result = false;

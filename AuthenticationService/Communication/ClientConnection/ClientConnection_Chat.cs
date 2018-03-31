@@ -8,7 +8,7 @@ namespace AuthenticationService.Communication
 {
     partial class ClientConnection
     {
-        private ServiceBusResponse ChatContactsRequest(ChatServiceRequest request)
+        private ServiceBusResponse ChatService(ChatServiceRequest request)
         {
             switch (request.requestType)
             {
@@ -35,7 +35,7 @@ namespace AuthenticationService.Communication
             SendOptions sendOptions = new SendOptions();
             sendOptions.SetDestination("Chat");
 
-            return requestingEndpoint.Request<GetChatHistoryResponse>(request, sendOptions).
+            return requestingEndpoint.Request<ServiceBusResponse>(request, sendOptions).
                 ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
@@ -51,7 +51,7 @@ namespace AuthenticationService.Communication
             SendOptions sendOptions = new SendOptions();
             sendOptions.SetDestination("Chat");
 
-            return requestingEndpoint.Request<GetChatContactsResponse>(request, sendOptions).
+            return requestingEndpoint.Request<ServiceBusResponse>(request, sendOptions).
                 ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
