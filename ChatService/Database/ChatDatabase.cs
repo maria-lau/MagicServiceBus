@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Messages.Database;
 using Messages.DataTypes.Database.Chat;
 using Messages.NServiceBus.Commands;
@@ -72,6 +73,7 @@ namespace ChatService.Database
             string message = "";
             GetChatContacts contacts = new GetChatContacts();
             contacts.usersname = usersname;
+            contacts.contactNames = new List<string>();
 
             if (openConnection() == true)
             {
@@ -177,6 +179,7 @@ namespace ChatService.Database
             GetChatHistory chathistory = new GetChatHistory();
             chathistory.history.user1 = sender;
             chathistory.history.user2 = receiver;
+            chathistory.history.messages = new List<ChatMessage>();
 
             if (openConnection() == true)
             {

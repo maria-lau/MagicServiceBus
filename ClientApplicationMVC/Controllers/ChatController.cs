@@ -56,7 +56,7 @@ namespace ClientApplicationMVC.Controllers
                 };
                 
                 GetChatHistoryRequest historyRequest = new GetChatHistoryRequest(getHistoryCommand);
-                firstDisplayedChatHistory = ((GetChatHistoryResponse)connection.getChatHistory(historyRequest)).responseData.history;
+                firstDisplayedChatHistory = connection.getChatHistory(historyRequest).responseData.history;
             }
             else
             {
