@@ -52,7 +52,7 @@ namespace ChatService
             var routing = transport.Routing();
 
             //Register to the AccountCreated event published by the Authentication endpoint
-            routing.RegisterPublisher(typeof(AccountCreated), "Authentication");
+            //routing.RegisterPublisher(typeof(AccountCreated), "Authentication");
 
             //Register to the CompanySearchRequest event published by the Authentication endpoint
             //routing.RegisterPublisher(typeof(CompanySearchRequest), "Authentication");

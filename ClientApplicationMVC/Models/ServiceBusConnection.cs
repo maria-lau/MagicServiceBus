@@ -3,22 +3,20 @@ using Messages.DataTypes;
 using Messages.ServiceBusRequest;
 using Messages.ServiceBusRequest.Authentication.Requests;
 using Messages.ServiceBusRequest.Echo.Requests;
-using Messages.DataTypes.Database.CompanyDirectory;
 using Messages.ServiceBusRequest.CompanyDirectory.Responses;
 using Messages.ServiceBusRequest.CompanyDirectory.Requests;
-
+using Messages.ServiceBusRequest.CompanyReview.Responses;
+using Messages.ServiceBusRequest.CompanyReview.Requests;
+using Messages.ServiceBusRequest.Chat.Requests;
+using Messages.ServiceBusRequest.Chat.Responses;
 using System;
 using System.IO;
 using System.Net.Sockets;
 using System.Net.Security;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading;
-using Messages.ServiceBusRequest.CompanyReview.Responses;
-using Messages.ServiceBusRequest.CompanyReview.Requests;
-using Messages.ServiceBusRequest.Chat.Requests;
-using Messages.ServiceBusRequest.Chat.Responses;
+
 
 namespace ClientApplicationMVC.Models
 {
@@ -62,25 +60,23 @@ namespace ClientApplicationMVC.Models
             return readUntilEOF();
         }
 
-        public ServiceBusResponse getAllChatContacts(GetChatContactsRequest request)
+        public GetChatContactsResponse getAllChatContacts(GetChatContactsRequest request)
         {
             send(request);
             return (GetChatContactsResponse)readUntilEOF();
         }
 
-        public ServiceBusResponse getChatHistory(GetChatHistoryRequest request)
+        public GetChatHistoryResponse getChatHistory(GetChatHistoryRequest request)
         {
             send(request);
             return (GetChatHistoryResponse)readUntilEOF();
         }
 
-        public void sendChatMessage(SendMessageRequest request)
+        public ServiceBusResponse sendChatMessage(SendMessageRequest request)
         {
             send(request);
+            return readUntilEOF();
         }
-
-
- 
 
         #region AuthenticationServiceMessages
 

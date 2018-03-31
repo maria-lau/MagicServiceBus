@@ -40,7 +40,7 @@ namespace ClientApplicationMVC.Controllers
             };
 
             GetChatContactsRequest contactsRequest = new GetChatContactsRequest(getContactsCommand);
-            GetChatContactsResponse contactsResponse = (GetChatContactsResponse)connection.getAllChatContacts(contactsRequest);
+            GetChatContactsResponse contactsResponse = connection.getAllChatContacts(contactsRequest);
             
             ChatHistory firstDisplayedChatHistory = null;
 
