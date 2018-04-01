@@ -10,21 +10,16 @@ using ChatService.Database;
 
 namespace ChatService.Handlers
 {
-    class GetChatContactsHandler : NServiceBus.IHandleMessages<GetChatContactsRequest>
+    class GetChatContactsHandler : IHandleMessages<GetChatContactsRequest>
     {
-        private static HttpClient client = new HttpClient();
 
         static ILog log = LogManager.GetLogger<GetChatContactsRequest>();
 
-        public async Task Handle(GetChatContactsRequest message, IMessageHandlerContext context)
-        {
-            await HandleAsync(message, context);
-        }
-        public async Task HandleAsync(GetChatContactsRequest message, IMessageHandlerContext context)
+        public Task Handle(GetChatContactsRequest message, IMessageHandlerContext context)
         {
             ChatDatabase db = ChatDatabase.getInstance();
             GetChatContactsResponse response = db.retrieveChatContacts(message.getCommand.usersname);
-            await context.Reply(response);
+            return context.Reply(response);
         }
     }
 }

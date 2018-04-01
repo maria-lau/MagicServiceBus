@@ -78,37 +78,27 @@ namespace ChatService.Database
             if (openConnection() == true)
             {
                 result = true;
-                try
-                {
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    MySqlDataReader dataReader = command.ExecuteReader();
-                    // if tuples are returned
-                    if (dataReader.HasRows)
-                    {
-                        while (dataReader.Read())
-                        {
-                            contacts.contactNames.Add(dataReader.GetString(2));
-                        }
 
-                        dataReader.Close();
-                        closeConnection();
-                        return new GetChatContactsResponse(result, message, contacts);
-                    }
-                    // no tuples returned
-                    else
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader dataReader = command.ExecuteReader();
+                // if tuples are returned
+                if (dataReader.HasRows)
+                {
+                    while (dataReader.Read())
                     {
-                        dataReader.Close();
-                        closeConnection();
-                        return new GetChatContactsResponse(result, message, contacts);
+                        contacts.contactNames.Add(dataReader.GetString(2));
                     }
-                }
-                catch (Exception e)
-                {
-                    message = e.Message;
-                }
-                finally
-                {
+
+                    dataReader.Close();
                     closeConnection();
+                    return new GetChatContactsResponse(result, message, contacts);
+                }
+                // no tuples returned
+                else
+                {
+                    dataReader.Close();
+                    closeConnection();
+                    return new GetChatContactsResponse(result, message, contacts);
                 }
             }
             else
@@ -129,8 +119,8 @@ namespace ChatService.Database
             int timeStamp = chatmessage.unix_timestamp;
             string messagecontent = chatmessage.messageContents;
 
-            string query = "INSERT INTO " + dbname + ".chatmessages(sender, receiver, timestamp, message) " + 
-                            "VALUES ('" + sender + "','" + receiver + "','" + timeStamp + "','" + messagecontent +"');";
+            string query = "INSERT INTO " + dbname + ".chatmessages(sender, receiver, timestamp, message) " +
+                            "VALUES ('" + sender + "','" + receiver + "','" + timeStamp + "','" + messagecontent + "');";
 
             if (openConnection() == true)
             {
@@ -139,6 +129,27 @@ namespace ChatService.Database
                     MySqlCommand command = new MySqlCommand(query, connection);
                     command.ExecuteNonQuery();
                     result = true;
+
+                    // now check if this is a new chat contact and update chat contacts if needed
+                    query = @"SELECT * FROM " + dbname + ".chatcontacts " + "WHERE usersname='" + sender + "' AND contactname = '" + receiver + "';";
+                    command = new MySqlCommand(query, connection);
+                    MySqlDataReader dataReader = command.ExecuteReader();
+
+                    // if chat contact doesn't exist
+                    if (!(dataReader.HasRows))
+                    {
+                        insertNewChatContact(sender, receiver);
+                    }
+
+                    query = @"SELECT * FROM " + dbname + ".chatcontacts " + "WHERE usersname='" + receiver + "' AND contactname = '" + sender + "';";
+                    command = new MySqlCommand(query, connection);
+                    dataReader = command.ExecuteReader();
+
+                    if (!(dataReader.HasRows))
+                    {
+                        insertNewChatContact(receiver, sender);
+                    }
+                    dataReader.Close();
                 }
                 catch (MySqlException e)
                 {
@@ -176,50 +187,44 @@ namespace ChatService.Database
             string query = @"SELECT * FROM " + dbname + ".chatmessages "
                     + "WHERE (sender='" + sender + "' AND receiver='" + receiver + "') OR (sender='" + receiver + "' AND receiver='" + sender + "') ORDER BY id ASC;";
 
-            GetChatHistory chathistory = new GetChatHistory();
-            chathistory.history.user1 = sender;
-            chathistory.history.user2 = receiver;
-            chathistory.history.messages = new List<ChatMessage>();
+            GetChatHistory chathistory = new GetChatHistory()
+            {
+                history = new ChatHistory
+                {
+                    user1 = sender,
+                    user2 = receiver,
+                    messages = new List<ChatMessage>()
+                }      
+            };
 
             if (openConnection() == true)
             {
                 result = true;
-                try
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader dataReader = command.ExecuteReader();
+                // if tuples are returned
+                if (dataReader.HasRows)
                 {
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    MySqlDataReader dataReader = command.ExecuteReader();
-                    // if tuples are returned
-                    if (dataReader.HasRows)
+                    while (dataReader.Read())
                     {
-                        while (dataReader.Read())
-                        {
-                            ChatMessage temp = new ChatMessage();
-                            temp.sender = dataReader.GetString(1);
-                            temp.receiver = dataReader.GetString(2);
-                            temp.unix_timestamp = dataReader.GetInt32(3);
-                            temp.messageContents = dataReader.GetString(4);
-                            chathistory.history.messages.Add(temp);
-                        }
+                        ChatMessage temp = new ChatMessage();
+                        temp.sender = dataReader.GetString(1);
+                        temp.receiver = dataReader.GetString(2);
+                        temp.unix_timestamp = dataReader.GetInt32(3);
+                        temp.messageContents = dataReader.GetString(4);
+                        chathistory.history.messages.Add(temp);
+                    }
 
-                        dataReader.Close();
-                        closeConnection();
-                        return new GetChatHistoryResponse(result, message, chathistory);
-                    }
-                    // no tuples returned
-                    else
-                    {
-                        dataReader.Close();
-                        closeConnection();
-                        return new GetChatHistoryResponse(result, message, chathistory);
-                    }
-                }
-                catch (Exception e)
-                {
-                    message = e.Message;
-                }
-                finally
-                {
+                    dataReader.Close();
                     closeConnection();
+                    return new GetChatHistoryResponse(result, message, chathistory);
+                }
+                // no tuples returned
+                else
+                {
+                    dataReader.Close();
+                    closeConnection();
+                    return new GetChatHistoryResponse(result, message, chathistory);
                 }
             }
             else

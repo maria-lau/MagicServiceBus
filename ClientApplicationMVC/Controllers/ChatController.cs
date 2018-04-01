@@ -1,10 +1,8 @@
 ﻿using ClientApplicationMVC.Models;
-
 using Messages.NServiceBus.Commands;
 using Messages.DataTypes.Database.Chat;
 using Messages.ServiceBusRequest.Chat.Requests;
 using Messages.ServiceBusRequest.Chat.Responses;
-
 using System.Web.Mvc;
 
 namespace ClientApplicationMVC.Controllers
@@ -41,10 +39,11 @@ namespace ClientApplicationMVC.Controllers
 
             GetChatContactsRequest contactsRequest = new GetChatContactsRequest(getContactsCommand);
             GetChatContactsResponse contactsResponse = connection.getAllChatContacts(contactsRequest);
-            
+
             ChatHistory firstDisplayedChatHistory = null;
 
-            if (contactsResponse.responseData.contactNames.Count != 0) {
+            if (contactsResponse.responseData.contactNames.Count != 0)
+            {
                 GetChatHistory getHistoryCommand = new GetChatHistory()
                 {
                     history = new ChatHistory
@@ -54,7 +53,7 @@ namespace ClientApplicationMVC.Controllers
                     }
 
                 };
-                
+
                 GetChatHistoryRequest historyRequest = new GetChatHistoryRequest(getHistoryCommand);
                 firstDisplayedChatHistory = connection.getChatHistory(historyRequest).responseData.history;
             }
@@ -84,7 +83,7 @@ namespace ClientApplicationMVC.Controllers
                 return RedirectToAction("Index", "Authentication");
             }
 
-            if("".Equals(receiver) || "".Equals(message) || timestamp == -1)
+            if ("".Equals(receiver) || "".Equals(message) || timestamp == -1)
             {
                 throw new System.Exception("Did not supply all required arguments.");
             }
@@ -143,11 +142,11 @@ namespace ClientApplicationMVC.Controllers
 
             GetChatHistoryRequest request = new GetChatHistoryRequest(getCommand);
 
-            GetChatHistoryResponse response = (GetChatHistoryResponse)connection.getChatHistory(request);
+            GetChatHistoryResponse response = connection.getChatHistory(request);
 
             string newConvoHtml = "";
 
-            foreach(ChatMessage msg in response.responseData.history.messages)
+            foreach (ChatMessage msg in response.responseData.history.messages)
             {
                 if (msg.sender.Equals(Globals.getUser()))
                 {
