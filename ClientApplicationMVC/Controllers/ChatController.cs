@@ -4,6 +4,7 @@ using Messages.DataTypes.Database.Chat;
 using Messages.ServiceBusRequest.Chat.Requests;
 using Messages.ServiceBusRequest.Chat.Responses;
 using System.Web.Mvc;
+using System;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -103,9 +104,32 @@ namespace ClientApplicationMVC.Controllers
             };
 
             SendMessageRequest request = new SendMessageRequest(chatMessage);
-
             connection.sendChatMessage(request);
             return null;
+        }
+
+        public ActionResult StartConvo(string receivername, string messageTextArea)
+        {
+            if (Globals.isLoggedIn() == false)
+            {
+                return RedirectToAction("Index", "Authentication");
+            }
+
+            if ("".Equals(receivername) || "".Equals(messageTextArea))
+            {
+                throw new System.Exception("Did not supply all required arguments.");
+            }
+
+            ServiceBusConnection connection = ConnectionManager.getConnectionObject(Globals.getUser());
+            if (connection == null)
+            {
+                return RedirectToAction("Index", "Authentication");
+            }
+
+            int unix_timestamp = (int)DateTimeOffset.Now.ToUnixTimeSeconds();
+
+            SendMessage(receivername, unix_timestamp, messageTextArea);
+            return View("../Home/Index");
         }
 
         /// <summary>

@@ -27,14 +27,28 @@ namespace ChatService.Database
         {
             bool result = false;
             string message = "";
-            string query = "INSERT INTO " + dbname + ".chatcontacts(usersname, contactname) " + "VALUES ('" + user1 + "','" + user2 + "');";
+            string query = @"SELECT * FROM " + dbname + ".chatcontacts " + "WHERE usersname='" + user1 + "' AND contactname = '" + user2 + "';";
 
             if (openConnection() == true)
             {
                 try
                 {
+                    // check if this is a new chat contact and update chat contacts if needed
                     MySqlCommand command = new MySqlCommand(query, connection);
-                    command.ExecuteNonQuery();
+                    MySqlDataReader dataReader = command.ExecuteReader();
+
+                    // if chat contact doesn't exist
+                    if (!(dataReader.HasRows))
+                    {
+                        dataReader.Close();
+                        query = "INSERT INTO " + dbname + ".chatcontacts(usersname, contactname) " + "VALUES ('" + user1 + "','" + user2 + "');";
+                        command = new MySqlCommand(query, connection);
+                        command.ExecuteNonQuery();
+                        query = "INSERT INTO " + dbname + ".chatcontacts(usersname, contactname) " + "VALUES ('" + user2 + "','" + user1 + "');";
+                        command = new MySqlCommand(query, connection);
+                        command.ExecuteNonQuery();
+                    }
+                    
                     result = true;
                 }
                 catch (MySqlException e)
@@ -119,6 +133,8 @@ namespace ChatService.Database
             int timeStamp = chatmessage.unix_timestamp;
             string messagecontent = chatmessage.messageContents;
 
+            ServiceBusResponse insertcontacts = insertNewChatContact(sender, receiver);
+
             string query = "INSERT INTO " + dbname + ".chatmessages(sender, receiver, timestamp, message) " +
                             "VALUES ('" + sender + "','" + receiver + "','" + timeStamp + "','" + messagecontent + "');";
 
@@ -129,27 +145,6 @@ namespace ChatService.Database
                     MySqlCommand command = new MySqlCommand(query, connection);
                     command.ExecuteNonQuery();
                     result = true;
-
-                    // now check if this is a new chat contact and update chat contacts if needed
-                    query = @"SELECT * FROM " + dbname + ".chatcontacts " + "WHERE usersname='" + sender + "' AND contactname = '" + receiver + "';";
-                    command = new MySqlCommand(query, connection);
-                    MySqlDataReader dataReader = command.ExecuteReader();
-
-                    // if chat contact doesn't exist
-                    if (!(dataReader.HasRows))
-                    {
-                        insertNewChatContact(sender, receiver);
-                    }
-
-                    query = @"SELECT * FROM " + dbname + ".chatcontacts " + "WHERE usersname='" + receiver + "' AND contactname = '" + sender + "';";
-                    command = new MySqlCommand(query, connection);
-                    dataReader = command.ExecuteReader();
-
-                    if (!(dataReader.HasRows))
-                    {
-                        insertNewChatContact(receiver, sender);
-                    }
-                    dataReader.Close();
                 }
                 catch (MySqlException e)
                 {

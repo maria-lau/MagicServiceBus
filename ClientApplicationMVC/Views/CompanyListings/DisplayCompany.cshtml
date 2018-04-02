@@ -41,7 +41,7 @@
         <input type="submit" value="Submit" style="float: none; background-color: #785ff4;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px" />
         <br />
     </form>
-    <form method="post" action="/Chat/StartConvo" onsubmit="return sendamessage()">
+    <form method="post" action="/Chat/StartConvo">
         <input type="hidden" name="receivername" value=@ViewBag.CompanyName />
         <br /><br /><p>Start a conversation with @ViewBag.CompanyName:</p>
         @Html.TextArea("messageTextArea", htmlAttributes: new { @style = "height: 120px; width: 350px;", @placeholder = "Enter Your Message Here..." })
