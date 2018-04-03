@@ -3,6 +3,7 @@
 using Messages.DataTypes.Database.CompanyDirectory;
 using Messages.ServiceBusRequest.CompanyDirectory.Responses;
 using Messages.ServiceBusRequest.CompanyDirectory.Requests;
+using Messages.ServiceBusRequest.CompanyReview.Requests;
 
 using System;
 using System.Text;
@@ -10,6 +11,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Net.Http;
 using System.Web.Script.Serialization;
+using Messages.ServiceBusRequest.CompanyReview.Responses;
+using Messages.ServiceBusRequest;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -93,59 +96,39 @@ namespace ClientApplicationMVC.Controllers
 
             // Call API to retrieve company reviews
             string company = ViewBag.CompanyName;
-            string apiurl = "http://35.188.169.187/api/review/getreview/{companyName:\"" + company + "\"}";
-            //System.Diagnostics.Debug.WriteLine("\n\n\n" + apiurl + "\n\n\n");
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = client.GetAsync(apiurl).Result;
-            HttpContent content = response.Content;
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            ReviewInfo[] reviews = js.Deserialize<ReviewInfo[]>(content.ReadAsStringAsync().Result);
-            String stringReviews = "";
-            for(int i = 0; i < reviews.Length; i++)
-            {
-                stringReviews = stringReviews + reviews[i].username + "<br />Wrote a review for <a style=color:#1185f9>" + reviews[i].companyName 
-                                + "</a><br /><a style=color:gold>&#9733</a>Rating: " + reviews[i].stars + "<br />" + reviews[i].review 
-                                + "<br />Time: " + reviews[i].timestamp + "<br /><br /><br />";
-            }
+            GetReviewRequest reviewRequest = new GetReviewRequest(company);
+            GetReviewResponse reviewResponse = connection.getCompanyReviews(reviewRequest);
 
-            ViewBag.companyReviews = stringReviews; 
-
-            //string test = ViewBag.companyReviews;
-            //System.Diagnostics.Debug.WriteLine("\n\n\n" + test + "\n\n\n");
+            ViewBag.companyReviews = reviewResponse.reviews;
 
             return View("DisplayCompany");
         }
 
         public ActionResult SaveReview()
         {
+            if (Globals.isLoggedIn() == false)
+            {
+                return RedirectToAction("Index", "Authentication");
+            }
+
+            ServiceBusConnection connection = ConnectionManager.getConnectionObject(Globals.getUser());
+            if (connection == null)
+            {
+                return RedirectToAction("Index", "Authentication");
+            }
+
             String review = Request.Form["reviewData"];
             String company = Request.Form["companyName"];
             TimeSpan time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            String rating = Request.Form["star"];//"";
-            //if (Request.Form["star"] != null)
-            //{
-            //    rating = Request.Form["star"].ToString();
-            //}
-
-            HttpClient httpPostRequest = new HttpClient();
-            string uri = "http://35.188.169.187/api/Review/PostReview";
+            String rating = Request.Form["star"];     
             string json = "{review:{companyName:\"" + company + "\"," + "username:\"" + Globals.getUser() + "\","
                               + "review:\"" + review + "\"," + "stars:" + rating + "," + "timestamp:" + time.TotalSeconds + "}}";
-            //System.Diagnostics.Debug.WriteLine("\n\n\n" + json + "\n\n\n");
-            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = httpPostRequest.PostAsync(uri, stringContent);
 
-            string message = "Successfully saved review for company: " + company;
+            SaveReviewRequest srRequest = new SaveReviewRequest(company, json);
+            ServiceBusResponse response = connection.saveCompanyReview(srRequest);
+            
 
-            if (response.Result.IsSuccessStatusCode)
-            {
-                Response.Write("<script>alert('" + message + "')</script>");
-            }
-            else
-            {
-                message = "Failed to save review for company: " + company;
-                Response.Write("<script>alert('" + message + "')</script>");
-            }
+            Response.Write("<script>alert('" + response.response + "')</script>");
 
             return View("Index");
         }

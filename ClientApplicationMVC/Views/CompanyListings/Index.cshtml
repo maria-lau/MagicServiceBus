@@ -32,7 +32,7 @@
             <div style="text-align:center;color: mediumblue; text-decoration:underline; text-decoration-color:mediumblue;"><p1>
                 @foreach (string item in ViewBag.Companylist.companyNames)
                 {
-                 @Html.ActionLink(item, "DisplayCompany/" + item, "CompanyListings")
+                 @Html.ActionLink(item, "DisplayCompany/" + item, "CompanyListings") <br />
                 }
             </p1></div>
         }
