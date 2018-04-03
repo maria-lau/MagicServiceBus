@@ -9,15 +9,16 @@
     ViewBag.Title = "Chat Box";
 }
 
-<h2>Index</h2>
+
+<h1><a style=color:#785ff4>C</a><a style=color:#1185f9>h</a><a style=color:#3ae2fc>a</a>t</h1>
 
 <div style="width: 100%; overflow: hidden; height: 500px;">
     <div style="width: 200px; float: left; height:inherit; overflow: auto;" id="ChatInstancesList">
         <!--Here goes a list of all the companies the user has initiated a conversation with-->
         @foreach (string contact in ViewBag.ChatInstances)
         {
-            <div class="chatInstanceBox" id="@contact">
-                <div style="line-height:50px;">
+            <div class="chatInstanceBox" id="@contact" style="border-color: rgb(220, 220, 220); border-style: outset;">
+                <div style="line-height:50px; color:#575758;">
                     <p class="chatInstanceCompanyName">@contact</p>
                 </div>
             </div>
@@ -34,7 +35,7 @@
                 {
                     //Display a message of the current user.
                     <p class="message">
-                        <span class="username">You: </span>
+                        <span class="username" style="color:#1185f9; font-weight:600;">You: </span>
                         @msg.messageContents
                     </p>
                 }
@@ -42,24 +43,41 @@
                 {
                     //Display a message of the conversation
                     <p class="message">
-                        <span class="username" style="color:aqua;">@msg.sender: </span>
+                        <span class="username" style="color:#785ff4; font-weight:600;">@msg.sender: </span>
                         @msg.messageContents
                     </p>
                 }
             }
         </div>
         <div style="height: 100px;" id="UserMessageArea">
-            <div style="float: left; width:inherit; height: 72px;" id="MessageTextArea">
+            <div style="font-family: 'Montserrat', sans-serif;float: left; width:inherit; height: 72px;" id="MessageTextArea">
                 <textarea class="messagetextarea" id="textUserMessage" placeholder="Enter your message here." rows="3"></textarea>
             </div>
             <div style="float: right;" id="SendButtonArea">
-                <button class="sendbutton" id="SendButton">Send</button>
+                <button class="sendbutton" id="SendButton" style="width:200px;font-family: 'Montserrat', sans-serif;background-color:#1185f9; color:#fff;">Send</button>
             </div>
         </div>
     </div>
 </div>
 
 <style>
+    h1 {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+    }
+    p {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .message {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+    }
+
     p3 {
         position: absolute;
         bottom: 100px;

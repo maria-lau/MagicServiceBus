@@ -48,10 +48,10 @@ function addTextToChatBox(text, sender) {
         "<span class='username'";
 
     if (sender === "You") {
-        newMessageHtml += ">You: ";
+        newMessageHtml += " style='color:#1185f9;'>You: ";
     }
     else {
-        newMessageHtml += " style='color:aqua;'>" + sender + ": ";
+        newMessageHtml += " style='color:#785ff4;'>" + sender + ": ";
     }
 
     newMessageHtml += "</span>" + text + "</p>";
