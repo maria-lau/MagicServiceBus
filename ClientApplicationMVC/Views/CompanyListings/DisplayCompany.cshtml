@@ -1,8 +1,4 @@
-﻿@{
-    string starRating = "0";
-}
-
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+﻿<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400i,900" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -16,41 +12,42 @@
         <br />
         Phone Number: @ViewBag.CompanyInfo.phoneNumber
         <br />
-        @ViewBag.CompanyName can be found at the following location(s):
-    </p><br />
-    @foreach (string location in ViewBag.CompanyInfo.locations)
-    {
-        <p1>@location</p1>
+        Address:
         <br />
-    }
+        @foreach (string location in ViewBag.CompanyInfo.locations)
+        {
+            @location
+            <br />
+        }
+    </p>
 
-    <br /><br />
+    <br />
     <p>Write a review for @ViewBag.CompanyName:</p>
     <form method="post" onsubmit="return checkStars()" action="/CompanyListings/SaveReview">
         <input type="hidden" name="companyName" value=@ViewBag.CompanyName />
-        <input type="hidden" name="starRating" value=@starRating />
         <textarea cols="20" id="reviewData" name="reviewData" placeholder="Write review here..." style="height:120px; width:350px;" required></textarea>
         <div class="stars">
-            <input class="star star-5" id="star-5" type="radio" name="star" value="5"/>
+            <input class="star star-5" id="star-5" type="radio" name="star" value="5" />
             <label class="star star-5" for="star-5"></label>
-            <input class="star star-4" id="star-4" type="radio" name="star" value="4"/>
+            <input class="star star-4" id="star-4" type="radio" name="star" value="4" />
             <label class="star star-4" for="star-4"></label>
-            <input class="star star-3" id="star-3" type="radio" name="star" value="3"/>
+            <input class="star star-3" id="star-3" type="radio" name="star" value="3" />
             <label class="star star-3" for="star-3"></label>
-            <input class="star star-2" id="star-2" type="radio" name="star" value="2"/>
+            <input class="star star-2" id="star-2" type="radio" name="star" value="2" />
             <label class="star star-2" for="star-2"></label>
-            <input class="star star-1" id="star-1" type="radio" name="star" value="1"/>
+            <input class="star star-1" id="star-1" type="radio" name="star" value="1" />
             <label class="star star-1" for="star-1"></label>
         </div>
         <input type="submit" value="Submit" style="float: none; background-color: #785ff4;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px" />
         <br />
     </form>
-
-    <br /><br /><p>Start a conversation with @ViewBag.CompanyName:</p>
-    @Html.TextArea("messageTextArea", htmlAttributes: new { @style = "height: 120px; width: 350px;", @placeholder = "Enter Your Message Here..." })
-    <button class="sendbutton" id="SendMessageButton" style=" font-family: 'Montserrat', sans-serif; font-weight:600;font-size:14px;float: none; background-color: #1185f9;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px">Send</button>
-    <br />
-
+    <form method="post" action="/Chat/StartConvo">
+        <input type="hidden" name="receivername" value=@ViewBag.CompanyName />
+        <br /><br /><p>Start a conversation with @ViewBag.CompanyName:</p>
+        @Html.TextArea("messageTextArea", htmlAttributes: new { @style = "height: 120px; width: 350px;", @placeholder = "Enter Your Message Here..." })
+        <input type="submit" value="Send" style="float: none; background-color: #1185f9;color: white; padding: 10px 15px; margin: 10px 0; border: none; cursor: pointer; width: 200px; height: 45px" />
+        <br />
+    </form>
 </div>
 <div id="right">
     <h1>Reviews</h1>
@@ -60,21 +57,18 @@
 <style>
 
     #left {
-        padding-top: 100px;
+        padding-top: 50px;
         width: 40%;
-        height: auto;
+        height: 700px;
         float: left;
     }
 
     #right {
-        padding-top: 100px;
-        width: 40%;
-        height: auto;
+        padding-top: 50px;
+        width: 50%;
+        height: 700px;
         float: right;
-    }
-
-    .container {
-        padding: 16px;
+        overflow: auto;
     }
 
     form {
@@ -126,7 +120,8 @@
 
     p3 {
         position: absolute;
-        bottom: 20px;
+        bottom: 0px;
+        right: 0px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 600;
         font-size: 14px;
@@ -175,7 +170,7 @@
 </style>
 
 <script>
- 
+
     function checkStars() {
         if (document.getElementById("star-5").checked) {
             return true;

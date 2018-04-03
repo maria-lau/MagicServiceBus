@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{32EF729D-C84D-4BD4-B8FF-81D5A53F393E}</ProjectGuid>
+    <ProjectGuid>{1DAEC21C-4C2F-4785-AD5E-666DD2F71E1A}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CompanyDirectoryService</RootNamespace>
-    <AssemblyName>CompanyDirectoryService</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>CompanyReviewService</RootNamespace>
+    <AssemblyName>CompanyReviewService</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
@@ -32,24 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.6.10.6\lib\net452\MySql.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="NServiceBus.Core, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
       <HintPath>..\packages\NServiceBus.6.4.3\lib\net452\NServiceBus.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Drawing.Design" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Runtime" />
-    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,10 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database\CompanyDirectoryServiceDatabase.cs" />
-    <Compile Include="Handlers\CompanySearchHandler.cs" />
-    <Compile Include="Handlers\CreateAccountHandler.cs" />
-    <Compile Include="Handlers\GetCompanyInfoHandler.cs" />
+    <Compile Include="Handlers\GetReviewHandler.cs" />
+    <Compile Include="Handlers\SaveReviewHandler.cs" />
+    <Compile Include="Models\ReviewInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -71,23 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Messages\Messages.csproj">
-      <Project>{b9f7b7c5-cb64-4d56-a95d-3c0f7ba15d0b}</Project>
+      <Project>{B9F7B7C5-CB64-4D56-A95D-3C0F7BA15D0B}</Project>
       <Name>Messages</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="docs\MySqlCommand.xml" />
-    <Content Include="docs\MySqlCommandBuilder.xml" />
-    <Content Include="docs\MySqlConnection.xml" />
-    <Content Include="docs\MySqlConnectionStringBuilder.xml" />
-    <Content Include="docs\MySqlDataAdapter.xml" />
-    <Content Include="docs\MySqlDataReader.xml" />
-    <Content Include="docs\MySqlException.xml" />
-    <Content Include="docs\MySqlHelper.xml" />
-    <Content Include="docs\MySqlParameter.xml" />
-    <Content Include="docs\MySqlParameterCollection.xml" />
-    <Content Include="docs\MySqlTransaction.xml" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
