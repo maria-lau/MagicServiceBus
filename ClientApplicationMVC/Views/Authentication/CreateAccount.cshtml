@@ -20,20 +20,20 @@
         new { id = "createAccountForm", onsubmit = "return validateCreateAccountForm()" }))
     {
     <div class="container" style="text-align:center;">
-        <label>Username:</label><br />
-        @Html.TextBox("usernameData")<br />
 
-        <label>Password:</label><br />
-        @Html.Password("passwordData")<br />
+        @Html.TextBox("usernameData", null, new { @placeholder = "Enter Username", required = "required" })<br />
 
-        <label>Address:</label><br />
-        @Html.TextBox("addressData")<br />
 
-        <label>Email:</label><br />
-        @Html.TextBox("emailData")<br />
+        @Html.Password("passwordData", null, new { @placeholder = "Enter Password", required = "required" })<br />
 
-        <label>Phone:</label><br />
-        @Html.TextBox("phoneData")<br />
+
+        @Html.TextBox("addressData", null, new { @placeholder = "Enter Address", required = "required" })<br />
+
+
+        @Html.TextBox("emailData", null, new { @placeholder = "Enter Email", required = "required" })<br />
+
+
+        @Html.TextBox("phoneData", null, new { @placeholder = "Enter Phone Number", required = "required" })<br />
 
         <label>Account Type:  </label>
         <select name="accountType">
