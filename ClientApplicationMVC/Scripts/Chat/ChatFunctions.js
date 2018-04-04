@@ -1,10 +1,12 @@
 ﻿
 var currentSelectedChat = null;
-
+var myConnection = null;
+var name;
 /**
 *   This function will set the on click functions for the send button and chat instances.
 */
 $(function () {//This function is executed after the entire page is loaded
+    CreateChatHub();
     $("#SendButton").click(sendMessage);
     $("#ChatInstancesList").children().each(function () {
         $(this).click(chatInstanceSelected);
@@ -29,6 +31,8 @@ function sendMessage() {
     addTextToChatBox(userData, "You");
     var recipient = currentSelectedChat;
     var timestamp = Math.round((new Date()).getTime() / 1000);
+
+    myConnection.server.send(recipient, userData);
 
     $.post("/Chat/SendMessage", {
         receiver: recipient,
@@ -87,4 +91,22 @@ function chatInstanceSelected() {
         }
     });
 
+}
+
+function CreateChatHub() {
+    myConnection = $.connection.hub.createHubProxy("ChatHub");
+
+    myConnection.client.instantMessage = function (sender, message) {
+        if (currentSelectedChat === sender) {
+            addTextToChatBox(message, sender);
+        }
+    };
+
+
+    $.connection.hub.start().done(function () {
+        //Here you may place javascript code that will run once the server confirms a 
+        //successful connection
+        name = $("#ClientUsername").val();
+        myConnection.server.userOnline(name);
+    });
 }
