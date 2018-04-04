@@ -119,10 +119,10 @@ namespace ClientApplicationMVC.Controllers
 
             String review = Request.Form["reviewData"];
             String company = Request.Form["companyName"];
-            TimeSpan time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            int time = (int)DateTimeOffset.Now.ToUnixTimeSeconds();
             String rating = Request.Form["star"];     
             string json = "{review:{companyName:\"" + company + "\"," + "username:\"" + Globals.getUser() + "\","
-                              + "review:\"" + review + "\"," + "stars:" + rating + "," + "timestamp:" + time.TotalSeconds + "}}";
+                              + "review:\"" + review + "\"," + "stars:" + rating + "," + "timestamp:" + time + "}}";
 
             SaveReviewRequest srRequest = new SaveReviewRequest(company, json);
             ServiceBusResponse response = connection.saveCompanyReview(srRequest);

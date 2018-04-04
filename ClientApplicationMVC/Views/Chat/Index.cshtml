@@ -5,10 +5,6 @@
 <link href="~/Content/ChatStyles.css" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400i,900" rel="stylesheet">
 
-@{
-    ViewBag.Title = "Chat Box";
-}
-
 
 <h1><a style=color:#785ff4>C</a><a style=color:#1185f9>h</a><a style=color:#3ae2fc>a</a>t</h1>
 
@@ -51,6 +47,7 @@
         </div>
         <div style="height: 100px;" id="UserMessageArea">
             <div style="font-family: 'Montserrat', sans-serif;float: left; width:inherit; height: 72px;" id="MessageTextArea">
+                <input type="hidden" id="ClientUsername" value=@ClientApplicationMVC.Models.Globals.getUser() />
                 <textarea class="messagetextarea" id="textUserMessage" placeholder="Enter your message here." rows="3"></textarea>
             </div>
             <div style="float: right;" id="SendButtonArea">
@@ -92,7 +89,7 @@
 
     <script type="text/javascript" src="~/Scripts/Chat/ChatFunctions.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
     <script type="text/javascript" src="~/signalr/hubs"></script>
 
 }
