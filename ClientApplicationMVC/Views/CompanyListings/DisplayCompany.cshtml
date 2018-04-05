@@ -19,7 +19,11 @@
             @location
             <br />
         }
+        @ViewBag.CompanyInfo.city, @ViewBag.CompanyInfo.province
+        <br />
     </p>
+    
+
 
     <br />
     <p>Write a review for @ViewBag.CompanyName:</p>
@@ -49,13 +53,23 @@
         <br />
     </form>
 </div>
-<div id="right">
+<div id="topright">
     <h1>Reviews</h1>
     <p>@Html.Raw(ViewBag.companyReviews)</p>
 </div>
+<div id="bottomright">
+    <h1>Weather</h1>
+    @if (ViewBag.foundWeather == false)
+    {
+        <p>Could not find weather information for company. :(</p>
+    }
+    <p>Current Temp in @ViewBag.CompanyInfo.city, @ViewBag.CompanyInfo.province: @ViewBag.currentTemp celsius)
+    <br />
+    Current Conditions: @ViewBag.weatherText</p>
+</div>
 
 <style>
-
+    
     #left {
         padding-top: 50px;
         width: 40%;
@@ -63,10 +77,17 @@
         float: left;
     }
 
-    #right {
+    #topright {
         padding-top: 50px;
         width: 50%;
-        height: 700px;
+        height: 200px;
+        float: right;
+    }
+    
+    #bottomright {
+        padding-top: 250px;
+        width: 50%;
+        height: 500px;
         float: right;
         overflow: auto;
     }

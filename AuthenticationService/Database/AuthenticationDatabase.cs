@@ -43,9 +43,10 @@ namespace AuthenticationService.Database
             string message = "";
             if(openConnection() == true)
             {
-                string query = @"INSERT INTO user(username, password, address, phonenumber, email, type) " +
+                string query = @"INSERT INTO user(username, password, address, city, province, phonenumber, email, type) " +
                     @"VALUES('" + accountInfo.username + @"', '" + accountInfo.password + 
-                    @"', '" + accountInfo.address + @"', '" + accountInfo.phonenumber + 
+                    @"', '" + accountInfo.address + @"', '" + accountInfo.city +
+                    @"', '" + accountInfo.province + @"', '" + accountInfo.phonenumber +
                     @"', '" + accountInfo.email + @"', '" + accountInfo.type.ToString() + @"');";
 
                 try
@@ -180,7 +181,23 @@ namespace AuthenticationService.Database
                         ),
                         new Column
                         (
-                            "address", "VARCHAR(50)",
+                            "address", "VARCHAR(30)",
+                            new string[]
+                            {
+                                "NOT NULL"
+                            }, false
+                        ),
+                        new Column
+                        (
+                            "city", "VARCHAR(30)",
+                            new string[]
+                            {
+                                "NOT NULL"
+                            }, false
+                        ),
+                        new Column
+                        (
+                            "province", "VARCHAR(30)",
                             new string[]
                             {
                                 "NOT NULL"

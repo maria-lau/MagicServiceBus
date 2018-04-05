@@ -22,12 +22,14 @@ namespace Messages.DataTypes.Database.CompanyDirectory
         /// <param name="phoneNumber">The phone number of the company</param>
         /// <param name="email">The email of the company</param>
         /// <param name="locations">An array of locations the company resides</param>
-        public CompanyInstance(string companyName, string phoneNumber, string email, string[] locations)
+        public CompanyInstance(string companyName, string phoneNumber, string email, string[] locations, string city, string province)
         {
             this.companyName = companyName;
             this.phoneNumber = phoneNumber;
             this.email = email;
             this.locations = locations;
+            this.city = city;
+            this.province = province;
         }
         
     }
@@ -57,6 +59,8 @@ namespace Messages.DataTypes.Database.CompanyDirectory
         /// </summary>
         public String[] locations { get; set; } = null;
 
-        
+        public String city { get; set; } = null;
+
+        public String province { get; set; } = null;
     }
 }

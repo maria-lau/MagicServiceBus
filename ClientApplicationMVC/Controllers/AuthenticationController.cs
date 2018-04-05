@@ -52,7 +52,7 @@ namespace ClientApplicationMVC.Controllers
 
         [HttpPost]
         public ActionResult CreateAccountPost(string usernameData, string passwordData, 
-            string addressData, string emailData, string phoneData)
+            string addressData, string cityData, string provinceData, string emailData, string phoneData)
         {
             //Get form data from HTML web page
             CreateAccount accountInfo = new CreateAccount();
@@ -62,6 +62,8 @@ namespace ClientApplicationMVC.Controllers
             accountInfo.username = usernameData;
             accountInfo.password = passwordData;
             accountInfo.address = addressData;
+            accountInfo.city = cityData;
+            accountInfo.province = provinceData;
             accountInfo.email = emailData;
             accountInfo.phonenumber = phoneData;
             accountInfo.type = (AccountType)System.Enum.Parse(typeof(AccountType), Request.Form["accountType"]);

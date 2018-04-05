@@ -16,7 +16,8 @@ using System.Net.Security;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
-
+using Messages.ServiceBusRequest.Weather.Responses;
+using Messages.ServiceBusRequest.Weather.Requests;
 
 namespace ClientApplicationMVC.Models
 {
@@ -76,6 +77,11 @@ namespace ClientApplicationMVC.Models
         {
             send(request);
             return readUntilEOF();
+        }
+        public GetWeatherResponse getWeather(GetWeatherRequest request)
+        {
+            send(request);
+            return (GetWeatherResponse)readUntilEOF();
         }
 
         #region AuthenticationServiceMessages
