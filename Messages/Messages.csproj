@@ -65,6 +65,10 @@
     <Compile Include="DataTypes\Database\Chat\ChatMessage.cs" />
     <Compile Include="DataTypes\Database\CompanyDirectory\CompanyInstance.cs" />
     <Compile Include="DataTypes\Database\CompanyDirectory\CompanyList.cs" />
+    <Compile Include="DataTypes\Database\Weather\Imperial.cs" />
+    <Compile Include="DataTypes\Database\Weather\Metric.cs" />
+    <Compile Include="DataTypes\Database\Weather\Temperature.cs" />
+    <Compile Include="DataTypes\Database\Weather\WeatherInfo.cs" />
     <Compile Include="DataTypes\Database\Weather\WeatherObject.cs" />
     <Compile Include="DataTypes\Enums.cs" />
     <Compile Include="DataTypes\SharedData.cs" />
