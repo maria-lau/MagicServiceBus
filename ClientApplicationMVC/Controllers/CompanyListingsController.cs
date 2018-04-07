@@ -101,12 +101,14 @@ namespace ClientApplicationMVC.Controllers
             ViewBag.foundWeather = weatherResponse.result;
             if (weatherResponse.result)
             {
-                ViewBag.currentTemp = weatherResponse.weather.weather[0].Temperature.Metric.Value;
-                ViewBag.weatherText = weatherResponse.weather.weather[0].WeatherText;
+                ViewBag.currentTemp = weatherResponse.weather.Temperature.Metric.Value;
+                ViewBag.feelTemp = weatherResponse.weather.RealFeelTemperature.Metric.Value;
+                ViewBag.weatherText = weatherResponse.weather.WeatherText;
             }
             else
             {
                 ViewBag.currentTemp = "N/A";
+                ViewBag.feelTemp = "N/A";
                 ViewBag.weatherText = "N/A";
             }
 

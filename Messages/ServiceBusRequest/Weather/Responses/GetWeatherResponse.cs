@@ -7,11 +7,11 @@ namespace Messages.ServiceBusRequest.Weather.Responses
     [Serializable]
     public class GetWeatherResponse : ServiceBusResponse
     {
-        public GetWeatherResponse(bool result, string response, WeatherObject weather)
+        public GetWeatherResponse(bool result, string response, WeatherInfo weather)
             :base(result, response)
         {
             this.weather = weather;
         }
-        public WeatherObject weather;
+        public WeatherInfo weather;
     }
 }

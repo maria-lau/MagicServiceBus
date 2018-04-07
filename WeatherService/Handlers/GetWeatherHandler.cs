@@ -7,6 +7,7 @@ using System.Net.Http;
 using NServiceBus;
 using NServiceBus.Logging;
 using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace WeatherService.Handlers
 {
@@ -16,44 +17,42 @@ namespace WeatherService.Handlers
 
         static ILog log = LogManager.GetLogger<GetWeatherRequest>();
 
-        public async Task Handle(GetWeatherRequest message, IMessageHandlerContext context)
-        {
-            await HandleAsync(message, context);
-        }
-        public async Task HandleAsync(GetWeatherRequest message, IMessageHandlerContext context)
+        public  Task Handle(GetWeatherRequest message, IMessageHandlerContext context)
         {
             // get location key
             string apikey = "LcQxhKGWz5UNzaqEUuASyKJk0HHLxfYv";
             string apikey2 = "oLbX3UBxvo3G7zdA4q8AjtKr4RMG3MIV";
             string apikey3 = "5GkBfWDUle2KBTxdCHnP3AKVhmt9nUEH";
+            string apikey4 = "ClB7bdIhjEr2kAAA928rGbRQfKCbHdOS";
             string city = message.city;
             string province = message.province;
-            string apiurl = "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=" + apikey3 + "&q=" + city + "%2C" +
+            string apiurl = "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=" + apikey + "&q=" + city + "%2C" +
                                 province + "%2CCanada&language=en-ca&details=false&offset=1 HTTP/1.1";
 
-            HttpResponseMessage response = client.GetAsync(apiurl).Result;
-            HttpContent content = response.Content;
+            HttpResponseMessage httpresponse = client.GetAsync(apiurl).Result;
+            HttpContent content = httpresponse.Content;
             string citysearchresponse = content.ReadAsStringAsync().Result;
-            WeatherObject weather = new WeatherObject();
-            GetWeatherResponse response3;
+            GetWeatherResponse response;
             // no city found
             if (citysearchresponse.Equals("[]"))
             {
-                response3 = new GetWeatherResponse(false, "", weather);
+                response = new GetWeatherResponse(false, "", new WeatherInfo());
             }
             else
             {
                 string[] tokens = citysearchresponse.Split('"');
                 string locationkey = tokens[5];
                 // get weather info with location key
-                apiurl = "http://dataservice.accuweather.com/currentconditions/v1/" + locationkey + "?apikey=" + apikey3 + "&language=en-ca&details=true%20HTTP/1.1";
-                HttpResponseMessage response2 = client.GetAsync(apiurl).Result;
-                HttpContent content2 = response2.Content;
-                string jsonString = content2.ReadAsStringAsync().Result;
-                weather = JsonConvert.DeserializeObject<WeatherObject>(jsonString);
-                response3 = new GetWeatherResponse(true, "", weather);
+                apiurl = "http://dataservice.accuweather.com/currentconditions/v1/" + locationkey + "?apikey=" + apikey + "&language=en-ca&details=true";
+                HttpResponseMessage httpresponse2 = client.GetAsync(apiurl).Result;
+                HttpContent content2 = httpresponse2.Content;
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                WeatherInfo[] weather = js.Deserialize<WeatherInfo[]>(content2.ReadAsStringAsync().Result);
+                response = new GetWeatherResponse(true, "", weather[0]);
             }
-            await context.Reply(response3);
+            return context.Reply(response);
+
+            // return context.Reply(new GetWeatherResponse(false, "", new WeatherInfo()));
         }
     }
 }
