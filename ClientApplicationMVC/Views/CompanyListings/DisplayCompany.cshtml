@@ -22,7 +22,7 @@
         @ViewBag.CompanyInfo.city, @ViewBag.CompanyInfo.province
         <br />
     </p>
-    
+
 
 
     <br />
@@ -54,16 +54,20 @@
     </form>
 </div>
 <div id="topright">
-    <h1>Weather</h1><img src="https://www.dropbox.com/sh/l06xfikm0y7pfpa/AAD7q75D0eHia36QzV5GNuNia/AW_Primary_Logos/Stacked_Logos/PNG/RGB?dl=0&preview=AW_Stack_RGB.png" alt="AccuWeather Logo"/>
+    <h1>Weather<img src="https://www.dropbox.com/s/17j1pgq39ldonra/AW_Stack_RGB.png?raw=1" alt="AccuWeather Logo" height="50" width="50" /></h1>
     @if (ViewBag.foundWeather == false)
     {
         <p>Could not find weather information for company. :(</p><img src="https://cdn2.iconfinder.com/data/icons/smiley-emoji/128/2.png" />
     }
-    <p>Current Temp in @ViewBag.CompanyInfo.city, @ViewBag.CompanyInfo.province: @ViewBag.currentTemp celsius)
-    <br />
-    Feels like: @ViewBag.feelTemp celsius
-    <br />
-    Current Conditions: @ViewBag.weatherText</p>
+    <p>
+        Current Temp in @ViewBag.CompanyInfo.city, @ViewBag.CompanyInfo.province: @ViewBag.currentTemp <sup>o</sup>C
+        <br />
+        <a style="color:#1185f9">Feels</a> like: @ViewBag.feelTemp <sup>o</sup>C
+        <br />
+        Current Conditions: @ViewBag.weatherText 
+        @if (ViewBag.foundWeather == true)
+        {<img src="@ViewBag.weatherIconURL" />}
+    </p>
 </div>
 <div id="bottomright">
     <h1>Reviews</h1>
@@ -71,7 +75,7 @@
 </div>
 
 <style>
-    
+
     #left {
         padding-top: 50px;
         width: 40%;
@@ -80,14 +84,23 @@
     }
 
     #topright {
+        margin-top: 50px;
         padding-top: 50px;
+        padding-right: 20px;
         width: 50%;
         height: 200px;
         float: right;
+        border: 3px solid;
+        border-color: white;
+        padding: 10px;
+        box-shadow: 5px 5px 40px #888888;
+        height: 200px;
+        background: #ccf5ff; /* For browsers that do not support gradients */
+        background: linear-gradient(to bottom right, #ccf5ff, #e6e6ff);
     }
-    
+
     #bottomright {
-        padding-top: 250px;
+        padding-top: 20px;
         width: 50%;
         height: 500px;
         float: right;

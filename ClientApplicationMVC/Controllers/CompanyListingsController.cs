@@ -15,6 +15,7 @@ using Messages.ServiceBusRequest.CompanyReview.Responses;
 using Messages.ServiceBusRequest;
 using Messages.ServiceBusRequest.Weather.Requests;
 using Messages.ServiceBusRequest.Weather.Responses;
+using Messages.DataTypes.Database.Weather;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -104,6 +105,8 @@ namespace ClientApplicationMVC.Controllers
                 ViewBag.currentTemp = weatherResponse.weather.Temperature.Metric.Value;
                 ViewBag.feelTemp = weatherResponse.weather.RealFeelTemperature.Metric.Value;
                 ViewBag.weatherText = weatherResponse.weather.WeatherText;
+                WeatherIcon url = new WeatherIcon();
+                ViewBag.weatherIconURL = url.weatherURL[weatherResponse.weather.WeatherIcon];
             }
             else
             {
