@@ -29,6 +29,16 @@ namespace Messages.NServiceBus.Commands
         public string address { get; set; }
 
         /// <summary>
+        /// The city of the new user
+        /// </summary>
+        public string city { get; set; }
+
+        /// <summary>
+        /// The province of the new user
+        /// </summary>
+        public string province { get; set; }
+
+        /// <summary>
         /// The phone number of the new user
         /// </summary>
         public string phonenumber { get; set; }

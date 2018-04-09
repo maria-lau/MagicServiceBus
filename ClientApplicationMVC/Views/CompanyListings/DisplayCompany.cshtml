@@ -19,7 +19,11 @@
             @location
             <br />
         }
+        @ViewBag.CompanyInfo.city, @ViewBag.CompanyInfo.province
+        <br />
     </p>
+
+
 
     <br />
     <p>Write a review for @ViewBag.CompanyName:</p>
@@ -49,7 +53,26 @@
         <br />
     </form>
 </div>
-<div id="right">
+<div id="topright">
+    <h1>Weather<img src="https://www.dropbox.com/s/17j1pgq39ldonra/AW_Stack_RGB.png?raw=1" alt="AccuWeather Logo" height="50" width="50" /></h1>
+    @if (ViewBag.foundWeather == false)
+    {
+        <p>Could not find weather information for company. </p>
+        <img src="https://restlessjo.files.wordpress.com/2013/09/sad-cloud.png" height="80" width="120" style=" margin-left: auto; margin-right:auto;display: block;"/>
+    }
+    @if (ViewBag.foundWeather == true)
+    { <p>
+            Current Temp in @ViewBag.CompanyInfo.city, @ViewBag.CompanyInfo.province: @ViewBag.currentTemp <sup>o</sup>C
+            <br />
+            <a style="color:#1185f9">Feels</a> like: @ViewBag.feelTemp <sup>o</sup>C
+            <br />
+            Current Conditions: @ViewBag.weatherText
+            @if (ViewBag.foundWeather == true)
+            {<img src="@ViewBag.weatherIconURL" />}
+        </p>
+    }
+</div>
+<div id="bottomright">
     <h1>Reviews</h1>
     <p>@Html.Raw(ViewBag.companyReviews)</p>
 </div>
@@ -63,10 +86,27 @@
         float: left;
     }
 
-    #right {
+    #topright {
+        margin-top: 50px;
+        margin-right: 5%;
         padding-top: 50px;
+        padding-right: 20px;
+        width: 40%;
+        height: 200px;
+        float: right;
+        border: 3px solid;
+        border-color: white;
+        padding: 10px;
+        box-shadow: 5px 5px 40px #888888;
+        height: 200px;
+        background: #ccf5ff; /* For browsers that do not support gradients */
+        background: linear-gradient(to bottom right, #ffffff, #ccf5ff);
+    }
+
+    #bottomright {
+        padding-top: 20px;
         width: 50%;
-        height: 700px;
+        height: 500px;
         float: right;
         overflow: auto;
     }
@@ -125,6 +165,7 @@
         font-family: 'Montserrat', sans-serif;
         font-weight: 600;
         font-size: 14px;
+        display: none;
     }
 
     div.stars {

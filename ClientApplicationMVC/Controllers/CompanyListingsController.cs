@@ -13,6 +13,9 @@ using System.Net.Http;
 using System.Web.Script.Serialization;
 using Messages.ServiceBusRequest.CompanyReview.Responses;
 using Messages.ServiceBusRequest;
+using Messages.ServiceBusRequest.Weather.Requests;
+using Messages.ServiceBusRequest.Weather.Responses;
+using Messages.DataTypes.Database.Weather;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -94,7 +97,24 @@ namespace ClientApplicationMVC.Controllers
             GetCompanyInfoResponse infoResponse = connection.getCompanyInfo(infoRequest);
             ViewBag.CompanyInfo = infoResponse.companyInfo;
 
-            // Call API to retrieve company reviews
+            GetWeatherRequest weatherRequest = new GetWeatherRequest(infoResponse.companyInfo.city, infoResponse.companyInfo.province);
+            GetWeatherResponse weatherResponse = connection.getWeather(weatherRequest);
+            ViewBag.foundWeather = weatherResponse.result;
+            if (weatherResponse.result)
+            {
+                ViewBag.currentTemp = weatherResponse.weather.Temperature.Metric.Value;
+                ViewBag.feelTemp = weatherResponse.weather.RealFeelTemperature.Metric.Value;
+                ViewBag.weatherText = weatherResponse.weather.WeatherText;
+                WeatherIcon url = new WeatherIcon();
+                ViewBag.weatherIconURL = url.weatherURL[weatherResponse.weather.WeatherIcon];
+            }
+            else
+            {
+                ViewBag.currentTemp = "N/A";
+                ViewBag.feelTemp = "N/A";
+                ViewBag.weatherText = "N/A";
+            }
+
             string company = ViewBag.CompanyName;
             GetReviewRequest reviewRequest = new GetReviewRequest(company);
             GetReviewResponse reviewResponse = connection.getCompanyReviews(reviewRequest);

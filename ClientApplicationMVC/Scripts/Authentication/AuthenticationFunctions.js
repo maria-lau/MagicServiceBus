@@ -1,16 +1,4 @@
-﻿// To be completed by students in milestone 2
-
-function validateLoginForm() {
-    if (loginForm.usernameData.value === "") {
-        return false;
-    }
-    if (loginForm.passwordData.value === "") {
-        return false;
-    }
-    return true;
-}
-
-function validateCreateAccountForm() {
+﻿function validateCreateAccountForm() {
     var emailRe = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailRe.test(String(createAccountForm.emailData.value).toLowerCase())) {
         alert("Please enter a valid e-mail.");

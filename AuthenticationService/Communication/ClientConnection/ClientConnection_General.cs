@@ -14,6 +14,7 @@ using System.Threading;
 using System.Security.Cryptography.X509Certificates;
 using Messages.ServiceBusRequest.CompanyReview;
 using Messages.ServiceBusRequest.Chat;
+using Messages.ServiceBusRequest.Weather;
 
 namespace AuthenticationService.Communication
 {
@@ -88,6 +89,8 @@ namespace AuthenticationService.Communication
                     return ReviewRequest((CompanyReviewServiceRequest)request);
                 case (Service.Chat):
                     return ChatService((ChatServiceRequest)request);
+                case (Service.Weather):
+                    return WeatherService((WeatherServiceRequest)request);
                 default:
                     return new ServiceBusResponse(false, "Error: Invalid request. Did not specify a valid service type. Specified type was: " + request.serviceRequested.ToString());
                 

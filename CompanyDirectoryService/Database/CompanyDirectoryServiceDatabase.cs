@@ -32,7 +32,6 @@ namespace CompanyDirectoryService.Database
 
 
 
-        //CHANTAL DO THIS FUNCTION
         public CompanyInstance GetCompanyInfo(CompanyInstance info)
         {
             if (openConnection() == true)
@@ -49,6 +48,8 @@ namespace CompanyDirectoryService.Database
                     value.phoneNumber = (String)reader["phonenumber"];
                     value.email = (String)reader["email"];
                     value.locations[0] = (String)reader["location"];
+                    value.city = (String)reader["city"];
+                    value.province = (String)reader["province"];
                 }
 
                 closeConnection();
@@ -99,9 +100,10 @@ namespace CompanyDirectoryService.Database
             string message = "";
             if (openConnection() == true)
             {
-                string query = @"INSERT INTO company(companyname, phonenumber, email, location) " +
+                string query = @"INSERT INTO company(companyname, phonenumber, email, location, city, province) " +
                     @"VALUES('" + info.companyName + @"', '" + info.phoneNumber +
-                    @"', '" + info.email + @"', '" + info.locations[0] + @"');";
+                    @"', '" + info.email + @"', '" + info.locations[0] +
+                     @"', '" + info.city + @"', '" + info.province + @"');";
 
                 try
                 {
@@ -180,7 +182,23 @@ namespace CompanyDirectoryService.Database
                     ),
                     new Column
                     (
-                        "location", "VARCHAR(50)",
+                        "location", "VARCHAR(30)",
+                        new string[]
+                        {
+                            "NOT NULL"
+                        }, false
+                    ),
+                    new Column
+                    (
+                        "city", "VARCHAR(30)",
+                        new string[]
+                        {
+                            "NOT NULL"
+                        }, false
+                    ),
+                    new Column
+                    (
+                        "province", "VARCHAR(30)",
                         new string[]
                         {
                             "NOT NULL"

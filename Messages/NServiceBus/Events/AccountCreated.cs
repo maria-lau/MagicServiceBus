@@ -16,6 +16,8 @@ namespace Messages.NServiceBus.Events
             username = newAcct.username;
             password = newAcct.password;
             address = newAcct.address;
+            city = newAcct.city;
+            province = newAcct.province;
             phonenumber = newAcct.phonenumber;
             email = newAcct.email;
             type = newAcct.type;
@@ -35,6 +37,16 @@ namespace Messages.NServiceBus.Events
         /// The address of the new user
         /// </summary>
         public string address { get; set; }
+
+        /// <summary>
+        /// The city of the new user
+        /// </summary>
+        public string city { get; set; }
+
+        /// <summary>
+        /// The province of the new user
+        /// </summary>
+        public string province { get; set; }
 
         /// <summary>
         /// The phone number of the new user

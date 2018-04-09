@@ -18,9 +18,9 @@ namespace CompanyDirectoryService.Handlers
             //will need to change this
             String[] arr = new String[1];
             arr[0] = message.address;
-            CompanyInstance company = new CompanyInstance(message.username, message.phonenumber, message.email, arr);
             if (message.type == Messages.DataTypes.AccountType.business)
             {
+                CompanyInstance company = new CompanyInstance(message.username, message.phonenumber, message.email, arr, message.city, message.province);
                 CompanyDirectoryServiceDatabase.getInstance().insertNewCompany(company);
             }
             return Task.CompletedTask;

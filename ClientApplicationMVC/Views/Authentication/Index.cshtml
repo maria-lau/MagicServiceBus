@@ -19,8 +19,7 @@
     <h1 class="w3-animate-left">
         <a style=color:#785ff4>Call </a><a style=color:#1185f9>it </a><a style=color:#3ae2fc>Local</a> Login Page
     </h1>
-    @using (Html.BeginForm("Login", "Authentication", FormMethod.Post,
-        new { id = "loginForm", onsubmit = "return validateLoginForm()" }))
+    @using (Html.BeginForm("Login", "Authentication", FormMethod.Post))
     {
         <div class="container" style="text-align:center;">
             @Html.TextBox("usernameData", null, new { @placeholder = "Enter Username", required = "required" })
